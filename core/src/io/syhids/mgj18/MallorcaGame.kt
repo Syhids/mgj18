@@ -43,14 +43,12 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addEntity(Hero())
 
         listOf(
-            -200f to -200f,
-            300f to 100f,
-            400f to 200f,
-            -300f to 400f,
-            100f to 400f
-        ).forEach { (x, y) -> engine.addEntity(Tomb().also { it.position.set(x, y) }) }
+            -140f to 250f,
+            110f to 250f,
 
-        engine.addEntity(Tomb())
+            -140f to -200f,
+            110f to -200f
+        ).forEach { (x, y) -> engine.addEntity(Tomb().also { it.position.set(x, y) }) }
 
         engine.addSystem(SpriteDrawingSystem(batch, camera))
         engine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))

@@ -68,8 +68,13 @@ class Hero : Entity() {
 }
 
 class Enemy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
+    companion object {
+        val texture by lazy { Texture(assetOf("pj_final.png")) }
+    }
+
     init {
-        val radius = 40f
+        val radius = 30f
+        add(SpriteComponent(img = texture, depth = 0, scale = 0.07f))
         add(PositionComponent(x = initialX, y = initialY))
         add(VelocityComponent())
         add(CircleColliderComponent(radius * 0.65f))
@@ -83,15 +88,21 @@ class Tomb : Entity() {
     init {
         val texture = Texture(assetOf("Lapida.png"))
         add(PositionComponent(x = -50f, y = 200f))
-        add(SpriteComponent(img = texture, depth = -1, scale = 0.2f))
+        add(SpriteComponent(img = texture, depth = -1, scale = 0.45f))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(20f), Color.BLUE))
         add(CanSpawnComponent())
     }
 }
 
 class Bullet : Entity() {
+    companion object {
+        val texture by lazy { Texture(assetOf("Bala.png")) }
+    }
+
     init {
         val radius = 6f
+
+        add(SpriteComponent(img = texture, depth = 0, scale = 0.33f))
         add(PositionComponent())
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.DARK_GRAY))
         add(ShootComponent(vec2(1f, 0f)))
