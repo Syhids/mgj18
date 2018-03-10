@@ -26,7 +26,10 @@ class MovementSpriteSystem : IteratingSystem(Family.all(
                 animation.state = AnimationComponent.State.Playing(-1)
                 animation.playIfNotAlready(heroLeftAnimation)
             }
-//                anyKeyPressed(Keys.D, Keys.RIGHT)  ->
+            anyKeyPressed(Keys.D, Keys.RIGHT) -> {
+                animation.state = AnimationComponent.State.Playing(-1)
+                animation.playIfNotAlready(heroRightAnimation)
+            }
 //                anyKeyPressed(Keys.W, Keys.UP) ->
             anyKeyPressed(Keys.S, Keys.DOWN) -> {
                 animation.state = AnimationComponent.State.Playing(-1)

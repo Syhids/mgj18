@@ -59,6 +59,14 @@ val heroLeftAnimation = Animation(listOf(
         Frame("hero/leftAnimation/5.png", 200),
         Frame("hero/leftAnimation/6.png", 200)
 ))
+val heroRightAnimation = Animation(listOf(
+        Frame("hero/rightAnimation/1.png", 200),
+        Frame("hero/rightAnimation/2.png", 200),
+        Frame("hero/rightAnimation/3.png", 200),
+        Frame("hero/rightAnimation/4.png", 200),
+        Frame("hero/rightAnimation/5.png", 200),
+        Frame("hero/rightAnimation/6.png", 200)
+))
 val heroDownAnimation = Animation(listOf(
         Frame("hero/downAnimation/1.png", 200),
         Frame("hero/downAnimation/2.png", 200),
