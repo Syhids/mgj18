@@ -43,11 +43,11 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addEntity(Hero())
 
         listOf(
-            100f to 100f,
+            -200f to -200f,
             300f to 100f,
-            500f to 100f,
-            100f to 500f,
-            100f to 700f
+            400f to 200f,
+            -300f to 400f,
+            100f to 400f
         ).forEach { (x, y) -> engine.addEntity(Tomb().also { it.position.set(x, y) }) }
 
         engine.addEntity(Tomb())
