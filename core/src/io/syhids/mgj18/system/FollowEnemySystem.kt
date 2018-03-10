@@ -12,7 +12,7 @@ import ktx.math.vec2
 class FollowEnemySystem : IteratingSystem(Family.all(
     EnemyComponent::class.java
 ).get()) {
-    private val MIN_DIST = 80
+    private val MIN_DIST = 60
 
     private val positionCache = component(PositionComponent::class)
     private val velocityCache = component(VelocityComponent::class)

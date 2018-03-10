@@ -29,8 +29,8 @@ class PrimitiveDrawingSystem(
         if (!ENABLE) return
         camera.update()
 
-        Gdx.gl.glEnable(GL_BLEND);
-        Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        Gdx.gl.glEnable(GL_BLEND)
+        Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         shapeRenderer.begin()
         shapeRenderer.projectionMatrix = camera.combined
         super.update(deltaTime)

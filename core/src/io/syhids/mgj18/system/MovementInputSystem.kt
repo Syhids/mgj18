@@ -10,12 +10,12 @@ import io.syhids.mgj18.anyKeyPressed
 import io.syhids.mgj18.component
 
 class MovementInputSystem : IteratingSystem(Family.all(
-        VelocityComponent::class.java,
-        KeyboardAffectedComponent::class.java
+    VelocityComponent::class.java,
+    KeyboardAffectedComponent::class.java
 ).get()) {
     private val velocity = component(VelocityComponent::class)
 
-    val POWER = 500f
+    val POWER = 290f
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val velocity = velocity.get(entity)

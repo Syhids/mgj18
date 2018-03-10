@@ -30,7 +30,7 @@ class MallorcaGame : ApplicationAdapter() {
 //    lateinit var bigFont: BitmapFont
 
     var GAME_SPEED = 2f
-    val CAMERA_ZOOM = 0.66f
+    val CAMERA_ZOOM = 0.5f
 
     override fun create() {
         batch = SpriteBatch()

@@ -54,12 +54,12 @@ fun assetOf(asset: String) = Gdx.files.internal("assets/$asset")
 class Hero : Entity() {
     init {
         val texture = Texture(assetOf("pj_final.png"))
-        val radius = 40f
+        val radius = 30f
         add(PositionComponent(x = 200f, y = 0f))
-        add(SpriteComponent(img = texture, depth = 1, scale = 0.1f))
+        add(SpriteComponent(img = texture, depth = 1, scale = radius * 0.0028f))
         add(VelocityComponent())
         add(FrictionComponent(value = 0.1f))
-        add(CircleColliderComponent(radius * 1.36f, canBeRepelled = false))
+        add(CircleColliderComponent(radius * 1f, canBeRepelled = false))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color(0f, 0.5f, 0.0f, 1f)))
 
         add(KeyboardAffectedComponent)
@@ -73,14 +73,14 @@ class Enemy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
     }
 
     init {
-        val radius = 30f
-        add(SpriteComponent(img = texture, depth = 0, scale = 0.07f))
+        val radius = 18f
+        add(SpriteComponent(img = texture, depth = 0, scale = radius * 0.0030f))
         add(PositionComponent(x = initialX, y = initialY))
         add(VelocityComponent())
-        add(CircleColliderComponent(radius * 0.65f))
+        add(CircleColliderComponent(radius * 0.75f))
         add(FrictionComponent(value = 0.13f))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.GOLD))
-        add(EnemyComponent(velocityMultiplier = 400f))
+        add(EnemyComponent(velocityMultiplier = 80f))
     }
 }
 
@@ -88,7 +88,7 @@ class Tomb : Entity() {
     init {
         val texture = Texture(assetOf("Lapida.png"))
         add(PositionComponent(x = -50f, y = 200f))
-        add(SpriteComponent(img = texture, depth = -1, scale = 0.45f))
+        add(SpriteComponent(img = texture, depth = -1, scale = 0.25f))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(20f), Color.BLUE))
         add(CanSpawnComponent())
     }

@@ -17,6 +17,8 @@ class CollisionAvoidSystem : IteratingSystem(Family.all(
     VelocityComponent::class.java,
     CircleColliderComponent::class.java
 ).get()) {
+    val REPEL_POWER = 15f
+
     private val position = component(PositionComponent::class)
     private val velocity = component(VelocityComponent::class)
     private val circleColliderCache = component(CircleColliderComponent::class)
@@ -56,7 +58,7 @@ class CollisionAvoidSystem : IteratingSystem(Family.all(
                 }
                 overlaps -> {
                     val repelDir = (position - otherEntity.position).nor()
-                    val repelAmount = repelDir * 100f
+                    val repelAmount = repelDir * REPEL_POWER
                     velocity += repelAmount
                 }
             }
