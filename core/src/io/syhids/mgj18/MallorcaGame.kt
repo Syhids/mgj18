@@ -76,7 +76,7 @@ class MallorcaGame : ApplicationAdapter() {
                 ), Color.CYAN))
             }
         })
-        engine.addSystem(KeepHeroInsideTheWorldSystem(wallBounds))
+        engine.addSystem(KeepMovableEntitiesInsideTheWorldSystem(wallBounds))
         engine.addSystem(CleanEntitiesOutsideTheWorldSystem(Rectangle(
             -(WORLD_WIDTH / 2f + 300),
             -(WORLD_HEIGHT / 2f + 300),
