@@ -36,7 +36,7 @@ class PositionComponent(
     operator fun plus(vec: Vector2) = vec2(x, y) + vec
 }
 
-class CircleColliderComponent(val radius: Float) : Component
+class CircleColliderComponent(val radius: Float, val canBeRepelled: Boolean = true) : Component
 
 class VelocityComponent : Component {
     var x: Float = 0f

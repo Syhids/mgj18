@@ -53,7 +53,7 @@ class Hero : Entity() {
         add(PositionComponent(x = -200f))
         add(VelocityComponent())
         add(FrictionComponent(value = 0.1f))
-        add(CircleColliderComponent(radius * 0.75f))
+        add(CircleColliderComponent(radius * 0.75f, canBeRepelled = false))
         add(PrimitiveDrawingComponent(Color(0f, 0.5f, 0.0f, 1f), radius))
         add(KeyboardAffectedComponent)
     }

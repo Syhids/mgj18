@@ -26,6 +26,8 @@ class CollisionAvoidSystem : IteratingSystem(Family.all(
         val velocity = velocity.get(entity)
         val circleCollider = circleColliderCache.get(entity)
 
+        if (!circleCollider.canBeRepelled) return
+
         val otherColliders = engine.entities
             .filterNot { it == entity }
             .filter { it.hasComponent<CircleColliderComponent>() }
