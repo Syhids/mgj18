@@ -34,9 +34,9 @@ fun yAlignBottom(tex: Texture, scale: Float = 1f): Float {
 
 class Background : Entity() {
     init {
-        val texture = Texture("bg.jpeg")
-        add(PositionComponent(y = yAlignBottom(texture) + 0f))
-        add(SpriteComponent(img = texture, depth = -100))
+        val texture = Texture("mapita.png")
+        add(PositionComponent())
+        add(SpriteComponent(img = texture, depth = -100, scale = 0.5f))
     }
 }
 
@@ -60,6 +60,7 @@ class Hero : Entity() {
         add(PrimitiveDrawingComponent(Color(0f, 0.5f, 0.0f, 1f), radius))
 
         add(KeyboardAffectedComponent)
+        add(LookAtComponent())
     }
 }
 
@@ -79,7 +80,7 @@ class Tomb : Entity() {
     init {
         val texture = Texture("Lapida.png")
         add(PositionComponent(x = -50f, y = 200f))
-        add(SpriteComponent(img = texture, depth = -1))
+        add(SpriteComponent(img = texture, depth = -1, scale = 0.2f))
         add(CanSpawnComponent())
     }
 }

@@ -16,16 +16,31 @@ class ShootingInputSytstem : IteratingSystem(Family.all(
         val bullet = Bullet()
         val hero = engine.entities.first { it is Hero }
 
+
         if (keyJustPressed(Input.Keys.SPACE)) {
-            bullet.position.x = hero.position.x
-            bullet.position.y = hero.position.y
+
             engine.addEntity(bullet)
 
-            val dir = bullet.getComponent(ShootComponent::class.java).dir
+            val shootComponent = bullet.getComponent(ShootComponent::class.java)
+
+            val lookAt = hero.getComponent(LookAtComponent::class.java)
 
             val power = 200
-            bullet.velocity.x = dir.x * power
-            bullet.velocity.y = dir.y * power
+            when (lookAt.dir) {
+                LookAtComponent.LoockAtDirection.Left -> shootComponent.dir.set(-1f, 0f)
+                LookAtComponent.LoockAtDirection.Right -> shootComponent.dir.set(1f, 0f)
+                LookAtComponent.LoockAtDirection.Up -> shootComponent.dir.set(0f, 1f)
+                LookAtComponent.LoockAtDirection.Doown -> shootComponent.dir.set(0f, -1f)
+            }
+            val distance = 50
+            when (lookAt.dir) {
+                LookAtComponent.LoockAtDirection.Left -> bullet.position.set(hero.position.x - distance, hero.position.y)
+                LookAtComponent.LoockAtDirection.Right -> bullet.position.set(hero.position.x + distance, hero.position.y)
+                LookAtComponent.LoockAtDirection.Up -> bullet.position.set(hero.position.x, hero.position.y + distance)
+                LookAtComponent.LoockAtDirection.Doown -> bullet.position.set(hero.position.x, hero.position.y - distance)
+            }
+            bullet.velocity.x = shootComponent.dir.x * power
+            bullet.velocity.y = shootComponent.dir.y * power
 
         }
     }

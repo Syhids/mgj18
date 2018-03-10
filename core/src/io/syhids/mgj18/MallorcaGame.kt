@@ -45,12 +45,13 @@ class MallorcaGame : ApplicationAdapter() {
 
         engine.addSystem(SpriteDrawingSystem(batch, camera))
         engine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))
-        engine.addSystem(InputSystem())
+        engine.addSystem(MovementInputSystem())
         engine.addSystem(AccelerationSystem())
         engine.addSystem(FollowEnemySystem())
         engine.addSystem(CollisionAvoidSystem())
         engine.addSystem(SpawnEnemySystem())
         engine.addSystem(ShootingInputSytstem())
+        engine.addSystem(HeroLookAtInputSystem())
     }
 
     private fun generateFont(size: Int): BitmapFont {
