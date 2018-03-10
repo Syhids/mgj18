@@ -29,7 +29,6 @@ class MallorcaGame : ApplicationAdapter() {
 
     var GAME_SPEED = 2f
 
-
     override fun create() {
         batch = SpriteBatch()
         shapeRenderer = ShapeRenderer()

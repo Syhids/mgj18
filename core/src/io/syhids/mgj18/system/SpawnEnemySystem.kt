@@ -29,7 +29,7 @@ class SpawnEnemySystem : IteratingSystem(Family.all(
             enemy.position.x = entity.position.x
             enemy.position.y = entity.position.y
             engine.addEntity(enemy)
-            canSpawnComponent.accTime -= 10 + rnd.nextFloat() * 10
+            canSpawnComponent.accTime -= 2 + rnd.nextFloat() * 4
         }
 
 
