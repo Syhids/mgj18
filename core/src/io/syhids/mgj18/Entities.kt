@@ -47,6 +47,7 @@ class Boss : Entity() {
     init {
         val radius = 80f
         add(PositionComponent())
+        add(SpriteComponent(img = Texture(assetOf("Ritual.png")), depth = 4, scale = 0.5f))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.RED))
     }
 }
@@ -97,8 +98,8 @@ class Hero : Entity() {
     init {
         val texture = Texture(assetOf("pj_final.png"))
         val radius = 30f
-        add(PositionComponent(x = 200f, y = 0f))
-        add(SpriteComponent(img = texture, depth = 1, scale = radius * 0.0028f))
+        add(PositionComponent(x = -462.47162f, y = 23.337389f))
+        add(SpriteComponent(img = texture, depth = 5, scale = radius * 0.0028f))
         add(VelocityComponent())
         add(FrictionComponent(value = 0.1f))
         add(CircleColliderComponent(radius * 1f, canBeRepelled = false))
@@ -118,7 +119,7 @@ class Enemy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
 
     init {
         val radius = 18f
-        add(SpriteComponent(img = texture, depth = 0, scale = radius * 0.0030f))
+        add(SpriteComponent(img = texture, depth = -5, scale = radius * 0.0030f))
         add(PositionComponent(x = initialX, y = initialY))
         add(VelocityComponent())
         add(CircleColliderComponent(radius * 0.75f))
@@ -133,7 +134,7 @@ class Tomb : Entity() {
     init {
         val texture = Texture(assetOf("Lapida.png"))
         add(PositionComponent(x = -50f, y = 200f))
-        add(SpriteComponent(img = texture, depth = -1, scale = 0.25f))
+        add(SpriteComponent(img = texture, depth = -11, scale = 0.25f))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(20f), Color.BLUE))
         add(CanSpawnComponent())
     }
@@ -146,7 +147,7 @@ class Bullet : Entity() {
 
     init {
         val radius = 6f
-        add(SpriteComponent(img = texture, depth = 0, scale = 0.33f))
+        add(SpriteComponent(img = texture, depth = 1, scale = 0.33f))
         add(PositionComponent())
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.DARK_GRAY))
         add(ShootComponent(vec2(1f, 0f)))
@@ -180,7 +181,7 @@ class SoulCursor : Entity() {
     init {
         val radius = 8f
 
-        add(SpriteComponent(img = texture, depth = 5, scale = 0.38f, visible = false))
+        add(SpriteComponent(img = texture, depth = 500, scale = 0.38f, visible = false))
         add(PositionComponent())
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.FIREBRICK))
         add(FrictionComponent(0.7f))
