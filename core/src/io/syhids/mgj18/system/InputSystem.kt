@@ -3,11 +3,11 @@ package io.syhids.mgj18.system
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
-import com.badlogic.gdx.Input
+import com.badlogic.gdx.Input.Keys
 import io.syhids.mgj18.KeyboardAffectedComponent
 import io.syhids.mgj18.PositionComponent
+import io.syhids.mgj18.anyKeyPressed
 import io.syhids.mgj18.component
-import io.syhids.mgj18.keyPressed
 
 class InputSystem : IteratingSystem(Family.all(
     PositionComponent::class.java,
@@ -21,13 +21,13 @@ class InputSystem : IteratingSystem(Family.all(
         val position = position.get(entity)
 
         when {
-            keyPressed(Input.Keys.A) -> position.x -= deltaTime * POWER
-            keyPressed(Input.Keys.D) -> position.x += deltaTime * POWER
+            anyKeyPressed(Keys.A, Keys.LEFT) -> position.x -= deltaTime * POWER
+            anyKeyPressed(Keys.D, Keys.RIGHT) -> position.x += deltaTime * POWER
         }
 
         when {
-            keyPressed(Input.Keys.W) -> position.y += deltaTime * POWER
-            keyPressed(Input.Keys.S) -> position.y -= deltaTime * POWER
+            anyKeyPressed(Keys.W, Keys.UP) -> position.y += deltaTime * POWER
+            anyKeyPressed(Keys.S, Keys.DOWN) -> position.y -= deltaTime * POWER
         }
     }
 }
