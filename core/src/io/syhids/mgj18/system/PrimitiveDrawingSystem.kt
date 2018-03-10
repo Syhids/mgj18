@@ -20,7 +20,7 @@ class PrimitiveDrawingSystem(
     PositionComponent::class.java,
     PrimitiveDrawingComponent::class.java
 ).get()) {
-    private val ENABLE = true
+    private val ENABLE = false
 
     private val position = component(PositionComponent::class)
     private val primitive = component(PrimitiveDrawingComponent::class)

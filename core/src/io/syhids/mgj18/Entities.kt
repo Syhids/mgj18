@@ -114,6 +114,25 @@ class Bullet : Entity() {
     }
 }
 
+class Life : Entity() {
+    init {
+        val texture = Texture(assetOf("Bala.png"))
+        val life = 1f
+        add(LifeHeroComponent(life))
+        add(PositionComponent(x = -530f, y = -300f))
+        add(SpriteComponent(img = texture, depth = -1, scale = 3f))
+    }
+}
+
+class Soul : Entity() {
+    init {
+        val texture = Texture(assetOf("Bala.png"))
+        val life = 1f
+        add(PositionComponent(x = 530f, y = -300f))
+        add(SpriteComponent(img = texture, depth = -1, scale = 3f))
+    }
+}
+
 class SoulCursor : Entity() {
     companion object {
         val texture by lazy { Texture(assetOf("Bala.png")) }

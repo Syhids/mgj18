@@ -42,6 +42,8 @@ class PositionComponent(
 
 class CircleColliderComponent(val radius: Float, val canBeRepelled: Boolean = true) : Component
 
+class LifeHeroComponent(val life: Float = 1f) : Component
+
 class VelocityComponent : Component {
     var x: Float = 0f
     var y: Float = 0f
