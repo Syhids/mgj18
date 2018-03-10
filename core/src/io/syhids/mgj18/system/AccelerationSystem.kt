@@ -3,7 +3,10 @@ package io.syhids.mgj18.system
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
-import io.syhids.mgj18.*
+import io.syhids.mgj18.PositionComponent
+import io.syhids.mgj18.VelocityComponent
+import io.syhids.mgj18.component
+import io.syhids.mgj18.friction
 
 class AccelerationSystem : IteratingSystem(Family.all(
     PositionComponent::class.java,
@@ -11,7 +14,6 @@ class AccelerationSystem : IteratingSystem(Family.all(
 ).get()) {
     private val position = component(PositionComponent::class)
     private val velocity = component(VelocityComponent::class)
-    private val friction = component(FrictionComponent::class)
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val position = position.get(entity)
