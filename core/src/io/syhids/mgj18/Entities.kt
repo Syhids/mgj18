@@ -37,7 +37,7 @@ fun yAlignBottom(tex: Texture, scale: Float = 1f): Float {
 
 class Background : Entity() {
     init {
-        val texture = Texture(assetOf("mapita.png"))
+        val texture = Texture(assetOf("pared.png"))
         add(PositionComponent())
         add(SpriteComponent(img = texture, depth = -100, scale = 0.5f))
     }
@@ -51,9 +51,26 @@ class Boss : Entity() {
     }
 }
 
+val heroLeftAnimation = Animation(listOf(
+        Frame("hero/leftAnimation/1.png", 200),
+        Frame("hero/leftAnimation/2.png", 200),
+        Frame("hero/leftAnimation/3.png", 200),
+        Frame("hero/leftAnimation/4.png", 200),
+        Frame("hero/leftAnimation/5.png", 200),
+        Frame("hero/leftAnimation/6.png", 200)
+))
+val heroDownAnimation = Animation(listOf(
+        Frame("hero/downAnimation/1.png", 200),
+        Frame("hero/downAnimation/2.png", 200),
+        Frame("hero/downAnimation/3.png", 200),
+        Frame("hero/downAnimation/4.png", 200)
+))
+
 fun assetOf(asset: String) = Gdx.files.internal("assets/$asset")
 
+
 class Hero : Entity() {
+
     init {
         val texture = Texture(assetOf("pj_final.png"))
         val radius = 30f
@@ -67,6 +84,7 @@ class Hero : Entity() {
         add(KeyboardAffectedComponent)
         add(MoveableByKeyboardComponent(enabled = true))
         add(LookAtComponent())
+        add(AnimationComponent(heroDownAnimation))
     }
 }
 

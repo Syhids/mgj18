@@ -3,29 +3,36 @@ package io.syhids.mgj18.system
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
-import io.syhids.mgj18.AnimationComponent
-import io.syhids.mgj18.SpriteComponent
-import io.syhids.mgj18.animation
-import io.syhids.mgj18.sprite
+import com.badlogic.gdx.Input.Keys
+import io.syhids.mgj18.*
 
 class MovementSpriteSystem : IteratingSystem(Family.all(
         SpriteComponent::class.java,
-        AnimationComponent::class.java
+        AnimationComponent::class.java,
+        MoveableByKeyboardComponent::class.java
 ).get()) {
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
+        if (entity !is Hero) return
+
+        if (entity.getComponent(MoveableByKeyboardComponent::class.java).enabled.not())
+            return
+
         val animation = entity.animation
-        val hero = entity.sprite
 
-        animation.step(deltaTime)
-        animation.updateCurrentAnimation()
-
-//        when {
-//        //falta poner la animacion que toca a cada
-//            anyKeyPressed(Keys.A, Keys.LEFT) ->
+        when {
+        //falta poner la animacion que toca a cada
+            anyKeyPressed(Keys.A, Keys.LEFT) -> {
+                animation.state = AnimationComponent.State.Playing(-1)
+                animation.playIfNotAlready(heroLeftAnimation)
+            }
 //                anyKeyPressed(Keys.D, Keys.RIGHT)  ->
 //                anyKeyPressed(Keys.W, Keys.UP) ->
-//                anyKeyPressed(Keys.S, Keys.DOWN) ->
-//        }
+            anyKeyPressed(Keys.S, Keys.DOWN) -> {
+                animation.state = AnimationComponent.State.Playing(-1)
+                animation.playIfNotAlready(heroDownAnimation)
+            }
+            else -> animation.state = AnimationComponent.State.Paused
+        }
     }
 }

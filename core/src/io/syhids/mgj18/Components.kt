@@ -117,8 +117,8 @@ class SpriteComponent(
 }
 
 class AnimationComponent(
-    var speed: Float = 1f,
-    val animation: Animation
+        var animation: Animation,
+        var speed: Float = 1f
 ) : Component {
 
     var state: State = State.Playing()
@@ -149,6 +149,19 @@ class AnimationComponent(
     private var accDelta: Float = 0f
 
     var currentAnimationIndex: Int = 0
+
+    fun playIfNotAlready(animation: Animation, times: Int = -1) {
+        if (this.animation == animation)
+            return
+
+        play(animation, times)
+    }
+
+    fun play(animation: Animation, times: Int = -1) {
+        this.animation = animation
+        accDelta = 0f
+        state = State.Playing(times)
+    }
 
     fun updateCurrentAnimation() {
         var deltaMs = accDelta * 1000 * speed

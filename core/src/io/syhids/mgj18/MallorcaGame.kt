@@ -67,6 +67,8 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addSystem(ShootingInputSystem())
         engine.addSystem(HeroLookAtInputSystem())
         engine.addSystem(CameraMovementSystem(camera))
+        engine.addSystem(AnimationSystem())
+        engine.addSystem(MovementSpriteSystem())
         engine.addSystem(SoulSystem())
 
         val wallBounds = Rectangle(
