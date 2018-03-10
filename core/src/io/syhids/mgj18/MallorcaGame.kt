@@ -30,13 +30,14 @@ class MallorcaGame : ApplicationAdapter() {
 //    lateinit var bigFont: BitmapFont
 
     var GAME_SPEED = 2f
+    val CAMERA_ZOOM = 0.66f
 
     override fun create() {
         batch = SpriteBatch()
         shapeRenderer = ShapeRenderer()
         shapeRenderer.setAutoShapeType(true)
 
-        camera = OrthographicCamera(WORLD_WIDTH.toFloat() / 2, WORLD_HEIGHT.toFloat() / 2)
+        camera = OrthographicCamera(WORLD_WIDTH.toFloat() * CAMERA_ZOOM, WORLD_HEIGHT.toFloat() * CAMERA_ZOOM)
 
         engine.addEntity(Background())
         engine.addEntity(Boss())
@@ -104,7 +105,7 @@ class MallorcaGame : ApplicationAdapter() {
     override fun render() {
         val dt = Gdx.graphics.deltaTime * GAME_SPEED
 
-        Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         engine.update(dt)
