@@ -40,7 +40,6 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addEntity(Background())
         engine.addEntity(Boss())
         engine.addEntity(Hero())
-        engine.addEntity(Enemy(initialX = 200f))
         engine.addEntity(Tomb())
 
         engine.addSystem(SpriteDrawingSystem(batch, camera))
@@ -50,7 +49,7 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addSystem(FollowEnemySystem())
         engine.addSystem(CollisionAvoidSystem())
         engine.addSystem(SpawnEnemySystem())
-        engine.addSystem(ShootingInputSytstem())
+        engine.addSystem(ShootingInputSystem())
         engine.addSystem(HeroLookAtInputSystem())
         engine.addSystem(CleanEntitiesOutsideTheWorldSystem(Rectangle(
             -(WORLD_WIDTH / 2f + 300),
