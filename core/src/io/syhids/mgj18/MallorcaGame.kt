@@ -36,7 +36,7 @@ class MallorcaGame : ApplicationAdapter() {
         shapeRenderer = ShapeRenderer()
         shapeRenderer.setAutoShapeType(true)
 
-        camera = OrthographicCamera(WORLD_WIDTH.toFloat(), WORLD_HEIGHT.toFloat())
+        camera = OrthographicCamera(WORLD_WIDTH.toFloat() / 2, WORLD_HEIGHT.toFloat() / 2)
 
         engine.addEntity(Background())
         engine.addEntity(Boss())
@@ -59,6 +59,8 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addSystem(SpawnEnemySystem())
         engine.addSystem(ShootingInputSystem())
         engine.addSystem(HeroLookAtInputSystem())
+        engine.addSystem(CameraMovementSystem(camera))
+
         val wallBounds = Rectangle(
             155f - (WORLD_WIDTH / 2f),
             180f - (WORLD_HEIGHT / 2f),
