@@ -2,7 +2,7 @@ package io.syhids.desktop
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
-import io.syhids.MyGdxGame
+import io.syhids.mgj18.MallorcaGame
 
 object DesktopLauncher {
     @JvmStatic
@@ -11,6 +11,6 @@ object DesktopLauncher {
         config.width = 800
         config.height = 600
         config.fullscreen = false
-        LwjglApplication(MyGdxGame(), config)
+        LwjglApplication(MallorcaGame(), config)
     }
 }
