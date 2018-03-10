@@ -69,10 +69,11 @@ class Enemy : Entity() {
 
 class Tomb : Entity() {
     init {
-        val radius = 10f
+        val texture = Texture("Lapida.png")
         add(PositionComponent(x = -50f, y = 200f))
+        add(SpriteComponent(img = texture, depth = -1))
         add(CanSpawnComponent())
-        add(PrimitiveDrawingComponent(Color.GOLD, radius))
+
     }
 }
 
