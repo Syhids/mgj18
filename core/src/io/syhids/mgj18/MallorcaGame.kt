@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.Rectangle
 import io.syhids.mgj18.system.*
 
 @JvmField
@@ -41,7 +42,6 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addEntity(Hero())
         engine.addEntity(Enemy(initialX = 200f))
         engine.addEntity(Tomb())
-        engine.addEntity(Bullet())
 
         engine.addSystem(SpriteDrawingSystem(batch, camera))
         engine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))
@@ -52,6 +52,12 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addSystem(SpawnEnemySystem())
         engine.addSystem(ShootingInputSytstem())
         engine.addSystem(HeroLookAtInputSystem())
+        engine.addSystem(CleanEntitiesOutsideTheWorldSystem(Rectangle(
+            -(WORLD_WIDTH / 2f + 300),
+            -(WORLD_HEIGHT / 2f + 300),
+            WORLD_WIDTH + 600f,
+            WORLD_HEIGHT + 600f
+        )))
         engine.addSystem(BulletColissionSystem())
     }
 
