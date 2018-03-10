@@ -183,7 +183,7 @@ class SoulCursor : Entity() {
         add(SpriteComponent(img = texture, depth = 5, scale = 0.38f, visible = false))
         add(PositionComponent())
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.FIREBRICK))
-        add(FrictionComponent(0.8f))
+        add(FrictionComponent(0.7f))
         add(VelocityComponent())
         add(CursorComponent())
         add(MoveableByKeyboardComponent(enabled = false))

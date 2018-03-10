@@ -22,6 +22,7 @@ class SoulSystem : EntitySystem() {
         set(value) {
             soul.state = value
         }
+
     val soul: SoulComponent
         get() = soulCache.get(hero)
 

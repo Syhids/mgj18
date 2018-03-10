@@ -13,7 +13,7 @@ class MovementInputSystem : IteratingSystem(Family.all(
     MoveableByKeyboardComponent::class.java
 ).get()) {
     val POWER = 290f
-    val SOUL_CURSOR_POWER = 1890f
+    val SOUL_CURSOR_POWER = 2400f
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val moveableComponent = entity.getComponent(MoveableByKeyboardComponent::class.java)
