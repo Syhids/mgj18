@@ -12,7 +12,6 @@ import java.util.*
 class SpawnEnemySystem : IteratingSystem(Family.all(
         CanSpawnComponent::class.java
 ).get()) {
-    // private val position = component(PositionComponent::class)
     private val canSpawn = component(CanSpawnComponent::class)
     var accTime = 0f
     val rnd = Random()

@@ -95,6 +95,7 @@ class Bullet : Entity() {
     }
 }
 
+
 class Menu : Entity() {
     init {
         add(MenuComponent())
