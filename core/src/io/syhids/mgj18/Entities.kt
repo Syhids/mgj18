@@ -53,6 +53,15 @@ class Hero : Entity() {
     }
 }
 
+class Enemy : Entity() {
+    init {
+        val radius = 40f
+        add(PositionComponent(x = 200f))
+        add(PrimitiveDrawingComponent(Color.GOLD, radius))
+    }
+}
+
+
 class Menu : Entity() {
     init {
         add(MenuComponent())

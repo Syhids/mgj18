@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import io.syhids.mgj18.system.FollowEnemy
 import io.syhids.mgj18.system.InputSystem
 import io.syhids.mgj18.system.PrimitiveDrawingSystem
 import io.syhids.mgj18.system.SpriteDrawingSystem
@@ -19,12 +20,12 @@ import io.syhids.mgj18.system.SpriteDrawingSystem
 val WORLD_WIDTH = 1280
 @JvmField
 val WORLD_HEIGHT: Int = (WORLD_WIDTH * 6 / 10).toInt()
+val engine = Engine()
 
 class MallorcaGame : ApplicationAdapter() {
     lateinit var batch: SpriteBatch
     lateinit var shapeRenderer: ShapeRenderer
 
-    val engine = Engine()
     lateinit var camera: OrthographicCamera
 //    lateinit var font: BitmapFont
 //    lateinit var bigFont: BitmapFont
@@ -42,10 +43,13 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addEntity(Background())
         engine.addEntity(Boss())
         engine.addEntity(Hero())
+        engine.addEntity(Enemy())
+
 
         engine.addSystem(SpriteDrawingSystem(batch, camera))
         engine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))
         engine.addSystem(InputSystem())
+        engine.addSystem(FollowEnemy())
     }
 
     private fun generateFont(size: Int): BitmapFont {
