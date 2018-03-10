@@ -48,6 +48,7 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addSystem(InputSystem())
         engine.addSystem(AccelerationSystem())
         engine.addSystem(FollowEnemySystem())
+        engine.addSystem(CollisionAvoidSystem())
         engine.addSystem(SpawnEnemySystem())
     }
 
