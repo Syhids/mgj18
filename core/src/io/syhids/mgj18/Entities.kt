@@ -67,6 +67,17 @@ class Enemy : Entity() {
     }
 }
 
+class Tomb : Entity() {
+    init {
+        val radius = 10f
+        add(PositionComponent(x = -50f, y = 200f))
+        add(CanSpawnComponent())
+        add(PrimitiveDrawingComponent(Color.GOLD, radius))
+    }
+}
+
+
+
 
 class Menu : Entity() {
     init {

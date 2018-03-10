@@ -50,6 +50,8 @@ class FrictionComponent(
 
 class EnemyComponent : Component
 
+class CanSpawnComponent(var accTime: Float = 0f) : Component
+
 class PrimitiveDrawingComponent(
     val color: Color,
     val radius: Float

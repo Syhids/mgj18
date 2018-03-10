@@ -11,11 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-import io.syhids.mgj18.system.AccelerationSystem
-import io.syhids.mgj18.system.FollowEnemySystem
-import io.syhids.mgj18.system.InputSystem
-import io.syhids.mgj18.system.PrimitiveDrawingSystem
-import io.syhids.mgj18.system.SpriteDrawingSystem
+import io.syhids.mgj18.system.*
 
 @JvmField
 val WORLD_WIDTH = 1280
@@ -45,13 +41,14 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addEntity(Boss())
         engine.addEntity(Hero())
         engine.addEntity(Enemy())
-
+        engine.addEntity(Tomb())
 
         engine.addSystem(SpriteDrawingSystem(batch, camera))
         engine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))
         engine.addSystem(InputSystem())
         engine.addSystem(AccelerationSystem())
         engine.addSystem(FollowEnemySystem())
+        engine.addSystem(SpawnEnemySystem())
     }
 
     private fun generateFont(size: Int): BitmapFont {
