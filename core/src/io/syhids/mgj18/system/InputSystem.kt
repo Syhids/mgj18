@@ -15,7 +15,7 @@ class InputSystem : IteratingSystem(Family.all(
 ).get()) {
     private val velocity = component(VelocityComponent::class)
 
-    val POWER = 50f
+    val POWER = 500f
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val velocity = velocity.get(entity)

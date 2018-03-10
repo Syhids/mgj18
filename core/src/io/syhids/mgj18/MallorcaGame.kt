@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import io.syhids.mgj18.system.AccelerationSystem
 import io.syhids.mgj18.system.FollowEnemySystem
 import io.syhids.mgj18.system.InputSystem
 import io.syhids.mgj18.system.PrimitiveDrawingSystem
@@ -49,6 +50,7 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addSystem(SpriteDrawingSystem(batch, camera))
         engine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))
         engine.addSystem(InputSystem())
+        engine.addSystem(AccelerationSystem())
         engine.addSystem(FollowEnemySystem())
     }
 

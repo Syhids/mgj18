@@ -41,6 +41,10 @@ class VelocityComponent : Component {
     val POWER = 6000f
 }
 
+class FrictionComponent(
+    var value: Float = 0f
+) : Component
+
 class EnemyComponent : Component
 
 class PrimitiveDrawingComponent(

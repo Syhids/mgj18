@@ -12,6 +12,9 @@ val Entity.position: PositionComponent
 val Entity.velocity: VelocityComponent
     get() = getComponent(VelocityComponent::class.java)
 
+val Entity.friction: FrictionComponent?
+    get() = getComponent(FrictionComponent::class.java)
+
 val Entity.sprite: SpriteComponent
     get() = getComponent(SpriteComponent::class.java)
 
@@ -48,8 +51,10 @@ class Hero : Entity() {
     init {
         val radius = 40f
         add(PositionComponent(x = -200f))
-        add(KeyboardAffectedComponent)
+        add(VelocityComponent())
+        add(FrictionComponent(value = 0.1f))
         add(PrimitiveDrawingComponent(Color(0f, 0.5f, 0.0f, 1f), radius))
+        add(KeyboardAffectedComponent)
     }
 }
 
