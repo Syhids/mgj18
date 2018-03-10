@@ -53,7 +53,7 @@ class Hero : Entity() {
         add(PositionComponent(x = -200f))
         add(VelocityComponent())
         add(FrictionComponent(value = 0.1f))
-        add(CircleColliderComponent(radius * 0.75f, canBeRepelled = false))
+        add(CircleColliderComponent(radius * 1.36f, canBeRepelled = false))
         add(PrimitiveDrawingComponent(Color(0f, 0.5f, 0.0f, 1f), radius))
         add(KeyboardAffectedComponent)
     }
@@ -64,7 +64,7 @@ class Enemy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
         val radius = 40f
         add(PositionComponent(x = initialX, y = initialY))
         add(VelocityComponent())
-        add(CircleColliderComponent(radius * 0.95f))
+        add(CircleColliderComponent(radius * 0.65f))
         add(FrictionComponent(value = 0.13f))
         add(PrimitiveDrawingComponent(Color.GOLD, radius))
         add(EnemyComponent(velocityMultiplier = 400f))
