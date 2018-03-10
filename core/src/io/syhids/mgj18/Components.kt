@@ -4,6 +4,9 @@ import com.badlogic.ashley.core.Component
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.math.Vector2
+import ktx.math.minus
+import ktx.math.vec2
 
 object KeyboardAffectedComponent : Component
 
@@ -19,6 +22,15 @@ class PositionComponent(
     fun set(position: PositionComponent) {
         set(position.x, position.y)
     }
+
+    operator fun minus(position: PositionComponent): Vector2 {
+        return vec2(x, y) - vec2(position.x, position.y)
+    }
+
+    operator fun plusAssign(vector2: Vector2) {
+        x += vector2.x
+        y += vector2.y
+    }
 }
 
 class VelocityComponent : Component {
@@ -28,6 +40,8 @@ class VelocityComponent : Component {
     val MAX_VELOCITY = 640f
     val POWER = 6000f
 }
+
+class EnemyComponent : Component
 
 class PrimitiveDrawingComponent(
     val color: Color,

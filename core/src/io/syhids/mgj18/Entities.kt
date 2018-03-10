@@ -58,6 +58,7 @@ class Enemy : Entity() {
         val radius = 40f
         add(PositionComponent(x = 200f))
         add(PrimitiveDrawingComponent(Color.GOLD, radius))
+        add(EnemyComponent())
     }
 }
 
