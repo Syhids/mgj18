@@ -45,9 +45,18 @@ class SoulSystem : EntitySystem() {
                         Gdx.input.isKeyJustPressed(Keys.C) -> {
                         val cursorPosition = soulCursor.position.toVec2
                         val entityCaptured = engine.entities
-                            .sortedByDescending { -cursorPosition.dst2(it.position.toVec2) }
-                            .first { it is Enemy }
-                        val newState = State.ControllingSoul(entityCaptured)
+                            .map { it to cursorPosition.dst2(it.position.toVec2) }
+                            .sortedByDescending { -it.second }
+                            .first { it.first is Enemy }
+
+                        if (entityCaptured.second > 40 * 40) {
+                            state = State.NoSoul
+                            disableMovementForEveryone()
+                            hero.setMovementEnabled(true)
+                            return
+                        }
+
+                        val newState = State.ControllingSoul(entityCaptured.first)
                         state = newState
                         disableMovementForEveryone()
                         newState.entity.setMovementEnabled(true)
