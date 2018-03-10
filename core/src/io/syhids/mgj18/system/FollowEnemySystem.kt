@@ -14,21 +14,24 @@ class FollowEnemySystem : IteratingSystem(Family.all(
 ).get()) {
     private val MIN_DIST = 80
 
-    private val position = component(PositionComponent::class)
+    private val positionCache = component(PositionComponent::class)
+    private val velocityCache = component(VelocityComponent::class)
+    private val enemyComponentCache = component(EnemyComponent::class)
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val hero = engine.entities.first { it is Hero }
         val enemy = entity
-        val enemyPosition = position.get(enemy)
+        val enemyPosition = positionCache.get(enemy)
 
         val direction = (hero.position - enemy.position).nor()
 
-        val totalMovementVector = direction * 2
+        val totalMovementVector = direction * deltaTime * enemyComponentCache.get(enemy).velocityMultiplier
 
         val futureDistanceBetweenBoth: Vector2 = enemyPosition + totalMovementVector - hero.position
 
         if (futureDistanceBetweenBoth.len2() > MIN_DIST * MIN_DIST) {
-            enemyPosition += totalMovementVector
+            val enemyVelocity = velocityCache.get(enemy)
+            enemyVelocity += totalMovementVector
         }
     }
 }

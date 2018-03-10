@@ -42,13 +42,17 @@ class VelocityComponent : Component {
 
     val MAX_VELOCITY = 640f
     val POWER = 6000f
+    operator fun plusAssign(vec: Vector2) {
+        x += vec.x
+        y += vec.y
+    }
 }
 
 class FrictionComponent(
     var value: Float = 0f
 ) : Component
 
-class EnemyComponent : Component
+class EnemyComponent(val velocityMultiplier: Float) : Component
 
 class CanSpawnComponent(var accTime: Float = 0f) : Component
 

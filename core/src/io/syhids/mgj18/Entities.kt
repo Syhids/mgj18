@@ -58,12 +58,14 @@ class Hero : Entity() {
     }
 }
 
-class Enemy : Entity() {
+class Enemy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
     init {
         val radius = 40f
-        add(PositionComponent(x = 200f))
+        add(PositionComponent(x = initialX, y = initialY))
+        add(VelocityComponent())
+        add(FrictionComponent(value = 0.13f))
         add(PrimitiveDrawingComponent(Color.GOLD, radius))
-        add(EnemyComponent())
+        add(EnemyComponent(velocityMultiplier = 400f))
     }
 }
 
