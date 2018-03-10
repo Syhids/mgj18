@@ -115,7 +115,7 @@ class Bullet : Entity() {
 
 class Life : Entity() {
     init {
-        val texture = Texture(assetOf("Bala.png"))
+        val texture = Texture(assetOf("Vida.png"))
         val life = 1f
         add(LifeHeroComponent(life))
         add(PositionComponent(x = -530f, y = -300f))
