@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
+import ktx.math.vec2
 
 val Entity.position: PositionComponent
     get() = getComponent(PositionComponent::class.java)
@@ -35,7 +36,7 @@ class Background : Entity() {
     init {
         val texture = Texture("bg.jpeg")
         add(PositionComponent(y = yAlignBottom(texture) + 0f))
-        add(SpriteComponent(img = texture, depth = -2))
+        add(SpriteComponent(img = texture, depth = -100))
     }
 }
 
@@ -49,8 +50,10 @@ class Boss : Entity() {
 
 class Hero : Entity() {
     init {
+        val texture = Texture("pj_final.png")
         val radius = 40f
-        add(PositionComponent(x = -200f))
+        add(PositionComponent(x = 200f, y = 0f))
+        add(SpriteComponent(img = texture, depth = 1))
         add(VelocityComponent())
         add(FrictionComponent(value = 0.1f))
         add(CircleColliderComponent(radius * 1.36f, canBeRepelled = false))
@@ -77,6 +80,16 @@ class Tomb : Entity() {
         add(PositionComponent(x = -50f, y = 200f))
         add(SpriteComponent(img = texture, depth = -1))
         add(CanSpawnComponent())
+    }
+}
+
+class Bullet : Entity() {
+    init {
+        val radius = 6f
+        add(PositionComponent())
+        add(PrimitiveDrawingComponent(Color.DARK_GRAY, radius))
+        add(ShootComponent(vec2(1f, 0f)))
+        add(VelocityComponent())
     }
 }
 

@@ -42,6 +42,7 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addEntity(Hero())
         engine.addEntity(Enemy(initialX = 200f))
         engine.addEntity(Tomb())
+        engine.addEntity(Bullet())
 
         engine.addSystem(SpriteDrawingSystem(batch, camera))
         engine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))
@@ -50,6 +51,7 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addSystem(FollowEnemySystem())
         engine.addSystem(CollisionAvoidSystem())
         engine.addSystem(SpawnEnemySystem())
+        engine.addSystem(ShootingInputSytstem())
     }
 
     private fun generateFont(size: Int): BitmapFont {

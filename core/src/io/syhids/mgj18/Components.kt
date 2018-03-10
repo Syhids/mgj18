@@ -58,6 +58,8 @@ class EnemyComponent(val velocityMultiplier: Float) : Component
 
 class CanSpawnComponent(var accTime: Float = 0f) : Component
 
+class ShootComponent(val dir: Vector2 = vec2()) : Component
+
 class PrimitiveDrawingComponent(
     val color: Color,
     val radius: Float
