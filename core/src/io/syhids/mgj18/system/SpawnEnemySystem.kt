@@ -17,21 +17,17 @@ class SpawnEnemySystem : IteratingSystem(Family.all(
     val rnd = Random()
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
-
         val canSpawnComponent = canSpawn.get(entity)
         canSpawnComponent.accTime += deltaTime
         val minTime = 0
-
 
         if (canSpawnComponent.accTime >= minTime) {
             val enemy = Enemy()
             enemy.position.x = entity.position.x
             enemy.position.y = entity.position.y
             engine.addEntity(enemy)
-            canSpawnComponent.accTime -= 2 + rnd.nextFloat() * 4
+            canSpawnComponent.accTime -= 5 + rnd.nextFloat() * 12
         }
-
-
     }
 
     override fun update(deltaTime: Float) {
