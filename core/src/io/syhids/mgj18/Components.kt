@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.Vector2
 import ktx.math.minus
+import ktx.math.plus
 import ktx.math.vec2
 
 object KeyboardAffectedComponent : Component
@@ -31,6 +32,8 @@ class PositionComponent(
         x += vector2.x
         y += vector2.y
     }
+
+    operator fun plus(vec: Vector2) = vec2(x, y) + vec
 }
 
 class VelocityComponent : Component {
