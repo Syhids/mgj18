@@ -30,8 +30,8 @@ class KeepMovableEntitiesInsideTheWorldSystem(
             val centerOfTheWorld = Vector2(0f, 0f)
             val dir = (centerOfTheWorld - position).nor()
 
-            position += dir * 50f * deltaTime
-            velocity *= 0.6f
+            position += dir * 70f * deltaTime
+            velocity *= 0.4f
         }
     }
 }
