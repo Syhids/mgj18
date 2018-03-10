@@ -3,11 +3,14 @@ package io.syhids.mgj18.system
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.GL20.*
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import io.syhids.mgj18.PositionComponent
 import io.syhids.mgj18.PrimitiveDrawingComponent
 import io.syhids.mgj18.component
+import ktx.app.copy
 
 class PrimitiveDrawingSystem(
     private val shapeRenderer: ShapeRenderer,
@@ -22,8 +25,10 @@ class PrimitiveDrawingSystem(
     override fun update(deltaTime: Float) {
         camera.update()
 
-        shapeRenderer.projectionMatrix = camera.combined
+        Gdx.gl.glEnable(GL_BLEND);
+        Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.begin()
+        shapeRenderer.projectionMatrix = camera.combined
         super.update(deltaTime)
         shapeRenderer.end()
     }
@@ -33,7 +38,7 @@ class PrimitiveDrawingSystem(
         val position = position.get(entity)
 
         shapeRenderer.set(ShapeRenderer.ShapeType.Filled)
-        shapeRenderer.color = primitive.color
+        shapeRenderer.color = primitive.color.copy(alpha = 0.3f)
         shapeRenderer.circle(position.x, position.y, primitive.radius)
     }
 }
