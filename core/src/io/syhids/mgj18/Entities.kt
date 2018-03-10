@@ -64,7 +64,6 @@ class Hero : Entity() {
         add(CircleColliderComponent(radius * 1f, canBeRepelled = false))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color(0f, 0.5f, 0.0f, 1f)))
         add(SoulComponent())
-
         add(KeyboardAffectedComponent)
         add(MoveableByKeyboardComponent(enabled = true))
         add(LookAtComponent())
@@ -127,7 +126,6 @@ class Life : Entity() {
 class Soul : Entity() {
     init {
         val texture = Texture(assetOf("Bala.png"))
-        val life = 1f
         add(PositionComponent(x = 530f, y = -300f))
         add(SpriteComponent(img = texture, depth = -1, scale = 3f))
     }
