@@ -84,6 +84,7 @@ class Tomb : Entity() {
         val texture = Texture(assetOf("Lapida.png"))
         add(PositionComponent(x = -50f, y = 200f))
         add(SpriteComponent(img = texture, depth = -1, scale = 0.2f))
+        add(PrimitiveDrawingComponent(Color.BLUE, 20f))
         add(CanSpawnComponent())
     }
 }
