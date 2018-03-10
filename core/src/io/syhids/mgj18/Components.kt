@@ -60,14 +60,13 @@ class CanSpawnComponent(var accTime: Float = 0f) : Component
 
 class ShootComponent(val dir: Vector2 = vec2()) : Component
 
-class LookAtComponent(var dir: LoockAtDirection = LoockAtDirection.Right) : Component {
-    enum class LoockAtDirection {
+class LookAtComponent(var dir: LookAtDirection = LookAtDirection.Right) : Component {
+    enum class LookAtDirection {
         Left,
         Right,
         Up,
-        Doown,
+        Down,
     }
-
 }
 
 class PrimitiveDrawingComponent(
