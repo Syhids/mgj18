@@ -1,11 +1,13 @@
 package io.syhids.mgj18
 
+import com.badlogic.ashley.core.Component
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
+import io.syhids.mgj18.component.SoulComponent
 import ktx.math.vec2
 
 val Entity.position: PositionComponent
@@ -61,8 +63,10 @@ class Hero : Entity() {
         add(FrictionComponent(value = 0.1f))
         add(CircleColliderComponent(radius * 1f, canBeRepelled = false))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color(0f, 0.5f, 0.0f, 1f)))
+        add(SoulComponent())
 
         add(KeyboardAffectedComponent)
+        add(MoveableByKeyboardComponent(enabled = true))
         add(LookAtComponent())
     }
 }
@@ -81,6 +85,7 @@ class Enemy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
         add(FrictionComponent(value = 0.13f))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.GOLD))
         add(EnemyComponent(velocityMultiplier = 80f))
+        add(MoveableByKeyboardComponent(enabled = false))
     }
 }
 
@@ -101,7 +106,6 @@ class Bullet : Entity() {
 
     init {
         val radius = 6f
-
         add(SpriteComponent(img = texture, depth = 0, scale = 0.33f))
         add(PositionComponent())
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.DARK_GRAY))
@@ -110,6 +114,25 @@ class Bullet : Entity() {
     }
 }
 
+class SoulCursor : Entity() {
+    companion object {
+        val texture by lazy { Texture(assetOf("Bala.png")) }
+    }
+
+    init {
+        val radius = 8f
+
+        add(SpriteComponent(img = texture, depth = 5, scale = 0.38f, visible = false))
+        add(PositionComponent())
+        add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.FIREBRICK))
+        add(FrictionComponent(0.8f))
+        add(VelocityComponent())
+        add(CursorComponent())
+        add(MoveableByKeyboardComponent(enabled = false))
+    }
+
+    class CursorComponent : Component
+}
 
 class Menu : Entity() {
     init {

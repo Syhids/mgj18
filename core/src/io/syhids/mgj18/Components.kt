@@ -11,6 +11,7 @@ import ktx.math.times
 import ktx.math.vec2
 
 object KeyboardAffectedComponent : Component
+data class MoveableByKeyboardComponent(var enabled: Boolean = false) : Component
 
 class PositionComponent(
     var x: Float = 0f,
@@ -35,6 +36,8 @@ class PositionComponent(
     }
 
     operator fun plus(vec: Vector2) = vec2(x, y) + vec
+    val toVec2: Vector2
+        get() = vec2(x, y)
 }
 
 class CircleColliderComponent(val radius: Float, val canBeRepelled: Boolean = true) : Component

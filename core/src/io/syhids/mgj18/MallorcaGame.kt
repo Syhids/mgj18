@@ -42,6 +42,7 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addEntity(Background())
         engine.addEntity(Boss())
         engine.addEntity(Hero())
+        engine.addEntity(SoulCursor())
 
         listOf(
             -140f to 250f,
@@ -61,6 +62,7 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addSystem(ShootingInputSystem())
         engine.addSystem(HeroLookAtInputSystem())
         engine.addSystem(CameraMovementSystem(camera))
+        engine.addSystem(SoulSystem())
 
         val wallBounds = Rectangle(
             155f - (WORLD_WIDTH / 2f),
