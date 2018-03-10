@@ -1,6 +1,7 @@
 package io.syhids.mgj18
 
 import com.badlogic.ashley.core.Entity
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Rectangle
@@ -34,7 +35,7 @@ fun yAlignBottom(tex: Texture, scale: Float = 1f): Float {
 
 class Background : Entity() {
     init {
-        val texture = Texture("mapita.png")
+        val texture = Texture(assetOf("mapita.png"))
         add(PositionComponent())
         add(SpriteComponent(img = texture, depth = -100, scale = 0.5f))
     }
@@ -48,9 +49,11 @@ class Boss : Entity() {
     }
 }
 
+fun assetOf(asset: String) = Gdx.files.internal("assets/$asset")
+
 class Hero : Entity() {
     init {
-        val texture = Texture("pj_final.png")
+        val texture = Texture(assetOf("pj_final.png"))
         val radius = 40f
         add(PositionComponent(x = 200f, y = 0f))
         add(SpriteComponent(img = texture, depth = 1, scale = 0.1f))
@@ -78,7 +81,7 @@ class Enemy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
 
 class Tomb : Entity() {
     init {
-        val texture = Texture("Lapida.png")
+        val texture = Texture(assetOf("Lapida.png"))
         add(PositionComponent(x = -50f, y = 200f))
         add(SpriteComponent(img = texture, depth = -1, scale = 0.2f))
         add(CanSpawnComponent())
@@ -100,7 +103,7 @@ class Menu : Entity() {
     init {
         add(MenuComponent())
         add(PositionComponent(y = 26f))
-        add(SpriteComponent(img = Texture("titulo.png"), scale = 1f, visible = false, depth = 1000))
+        add(SpriteComponent(img = Texture(assetOf("titulo.png")), scale = 1f, visible = false, depth = 1000))
     }
 
     val playButtonArea = Rectangle(-575f, -138f, 370f, 140f)

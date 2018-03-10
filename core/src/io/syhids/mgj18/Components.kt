@@ -198,7 +198,7 @@ data class Animation(val frames: List<Frame>) {
 }
 
 data class Frame(val imageName: String, val duration: Int) {
-    val texture by lazy { Texture(imageName) }
+    val texture by lazy { Texture(assetOf(imageName)) }
 }
 
 class MovableComponent : Component {
