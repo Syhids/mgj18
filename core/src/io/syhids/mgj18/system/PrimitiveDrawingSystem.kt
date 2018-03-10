@@ -12,6 +12,7 @@ import io.syhids.mgj18.PrimitiveDrawingComponent
 import io.syhids.mgj18.component
 import ktx.app.copy
 
+
 class PrimitiveDrawingSystem(
     private val shapeRenderer: ShapeRenderer,
     private val camera: OrthographicCamera
@@ -19,10 +20,13 @@ class PrimitiveDrawingSystem(
     PositionComponent::class.java,
     PrimitiveDrawingComponent::class.java
 ).get()) {
+    private val ENABLE = true
+
     private val position = component(PositionComponent::class)
     private val primitive = component(PrimitiveDrawingComponent::class)
 
     override fun update(deltaTime: Float) {
+        if (!ENABLE) return
         camera.update()
 
         Gdx.gl.glEnable(GL_BLEND);
