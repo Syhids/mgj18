@@ -45,7 +45,7 @@ class Boss : Entity() {
     init {
         val radius = 80f
         add(PositionComponent())
-        add(PrimitiveDrawingComponent(Color.RED, radius))
+        add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.RED))
     }
 }
 
@@ -60,7 +60,7 @@ class Hero : Entity() {
         add(VelocityComponent())
         add(FrictionComponent(value = 0.1f))
         add(CircleColliderComponent(radius * 1.36f, canBeRepelled = false))
-        add(PrimitiveDrawingComponent(Color(0f, 0.5f, 0.0f, 1f), radius))
+        add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color(0f, 0.5f, 0.0f, 1f)))
 
         add(KeyboardAffectedComponent)
         add(LookAtComponent())
@@ -74,7 +74,7 @@ class Enemy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
         add(VelocityComponent())
         add(CircleColliderComponent(radius * 0.65f))
         add(FrictionComponent(value = 0.13f))
-        add(PrimitiveDrawingComponent(Color.GOLD, radius))
+        add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.GOLD))
         add(EnemyComponent(velocityMultiplier = 400f))
     }
 }
@@ -84,7 +84,7 @@ class Tomb : Entity() {
         val texture = Texture(assetOf("Lapida.png"))
         add(PositionComponent(x = -50f, y = 200f))
         add(SpriteComponent(img = texture, depth = -1, scale = 0.2f))
-        add(PrimitiveDrawingComponent(Color.BLUE, 20f))
+        add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(20f), Color.BLUE))
         add(CanSpawnComponent())
     }
 }
@@ -93,7 +93,7 @@ class Bullet : Entity() {
     init {
         val radius = 6f
         add(PositionComponent())
-        add(PrimitiveDrawingComponent(Color.DARK_GRAY, radius))
+        add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.DARK_GRAY))
         add(ShootComponent(vec2(1f, 0f)))
         add(VelocityComponent())
     }

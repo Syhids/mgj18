@@ -39,6 +39,12 @@ class PrimitiveDrawingSystem(
 
         shapeRenderer.set(ShapeRenderer.ShapeType.Filled)
         shapeRenderer.color = primitive.color.copy(alpha = 0.3f)
-        shapeRenderer.circle(position.x, position.y, primitive.radius)
+        val shape = primitive.shape
+        when (shape) {
+            is PrimitiveDrawingComponent.Shape.Circle ->
+                shapeRenderer.circle(position.x, position.y, shape.radius)
+            is PrimitiveDrawingComponent.Shape.Rectangle ->
+                shapeRenderer.rect(position.x, position.y, shape.width.toFloat(), shape.height.toFloat())
+        }
     }
 }

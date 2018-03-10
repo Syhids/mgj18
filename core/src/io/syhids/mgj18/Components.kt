@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.Vector2
 import ktx.math.minus
 import ktx.math.plus
+import ktx.math.times
 import ktx.math.vec2
 
 object KeyboardAffectedComponent : Component
@@ -44,9 +45,17 @@ class VelocityComponent : Component {
 
     val MAX_VELOCITY = 640f
     val POWER = 6000f
+
     operator fun plusAssign(vec: Vector2) {
         x += vec.x
         y += vec.y
+    }
+
+    operator fun timesAssign(muliplier: Float) {
+        (vec2(x, y) * muliplier).let {
+            x = it.x
+            y = it.y
+        }
     }
 }
 
@@ -70,9 +79,14 @@ class LookAtComponent(var dir: LookAtDirection = LookAtDirection.Right) : Compon
 }
 
 class PrimitiveDrawingComponent(
-    val color: Color,
-    val radius: Float
-) : Component
+    val shape: Shape,
+    val color: Color
+) : Component {
+    sealed class Shape {
+        data class Circle(val radius: Float) : Shape()
+        data class Rectangle(val width: Int, val height: Int) : Shape()
+    }
+}
 
 class SpriteComponent(
     var img: Texture? = null,

@@ -1,6 +1,7 @@
 package io.syhids.mgj18
 
 import com.badlogic.ashley.core.Engine
+import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
@@ -60,6 +61,22 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addSystem(SpawnEnemySystem())
         engine.addSystem(ShootingInputSystem())
         engine.addSystem(HeroLookAtInputSystem())
+        val wallBounds = Rectangle(
+            155f - (WORLD_WIDTH / 2f),
+            180f - (WORLD_HEIGHT / 2f),
+            WORLD_WIDTH - 340f,
+            WORLD_HEIGHT - 300f
+        )
+        engine.addEntity(object : Entity() {
+            init {
+                add(PositionComponent(wallBounds.x, wallBounds.y))
+                add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Rectangle(
+                    wallBounds.width.toInt(),
+                    wallBounds.height.toInt()
+                ), Color.CYAN))
+            }
+        })
+        engine.addSystem(KeepHeroInsideTheWorldSystem(wallBounds))
         engine.addSystem(CleanEntitiesOutsideTheWorldSystem(Rectangle(
             -(WORLD_WIDTH / 2f + 300),
             -(WORLD_HEIGHT / 2f + 300),

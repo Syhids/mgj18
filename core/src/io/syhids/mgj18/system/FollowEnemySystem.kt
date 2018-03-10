@@ -36,4 +36,4 @@ class FollowEnemySystem : IteratingSystem(Family.all(
     }
 }
 
-private operator fun Vector2.minus(position: PositionComponent) = this - vec2(position.x, position.y)
+operator fun Vector2.minus(position: PositionComponent) = this - vec2(position.x, position.y)
