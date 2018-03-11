@@ -11,7 +11,6 @@ class MovementSpriteSystem : IteratingSystem(Family.all(
         AnimationComponent::class.java,
         MoveableByKeyboardComponent::class.java
 ).get()) {
-
     override fun processEntity(entity: Entity, deltaTime: Float) {
         if (entity !is Hero) return
 
@@ -21,7 +20,6 @@ class MovementSpriteSystem : IteratingSystem(Family.all(
         val animation = entity.animation
 
         when {
-        //falta poner la animacion que toca a cada
             anyKeyPressed(Keys.A, Keys.LEFT) -> {
                 animation.state = AnimationComponent.State.Playing(-1)
                 animation.playIfNotAlready(heroLeftAnimation)
@@ -34,7 +32,6 @@ class MovementSpriteSystem : IteratingSystem(Family.all(
                 animation.state = AnimationComponent.State.Playing(-1)
                 animation.playIfNotAlready(heroUpAnimation)
             }
-
             anyKeyPressed(Keys.S, Keys.DOWN) -> {
                 animation.state = AnimationComponent.State.Playing(-1)
                 animation.playIfNotAlready(heroDownAnimation)
