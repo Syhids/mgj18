@@ -1,10 +1,9 @@
 package io.syhids.mgj18.system
 
-import io.syhids.mgj18.Boss
+import io.syhids.mgj18.*
 import io.syhids.mgj18.Boss.BossLifeComponent
 import io.syhids.mgj18.Boss.BossStateComponent
 import io.syhids.mgj18.Boss.BossStateComponent.Stage
-import io.syhids.mgj18.DeadableComponent
 import io.syhids.mgj18.DeadableComponent.HitSource
 
 class BossStageSystem : DebugEntitySystem() {
@@ -27,14 +26,19 @@ class BossStageSystem : DebugEntitySystem() {
         when (bossStage.stage) {
             Boss.BossStateComponent.Stage.One -> {
                 bossLife.health -= 1
+                onBossLifeReduced(boss, hitSource)
             }
             Boss.BossStateComponent.Stage.Two -> {
-                if (hitSource == HitSource.Explosion)
+                if (hitSource == HitSource.Explosion) {
                     bossLife.health -= 1
+                    onBossLifeReduced(boss, hitSource)
+                }
             }
             Boss.BossStateComponent.Stage.Three -> {
-                if (hitSource == HitSource.Explosion)
+                if (hitSource == HitSource.Explosion) {
                     bossLife.health -= 1
+                    onBossLifeReduced(boss, hitSource)
+                }
             }
         }
 
@@ -53,5 +57,15 @@ class BossStageSystem : DebugEntitySystem() {
                 }
             }
         }
+    }
+
+    private fun onBossLifeReduced(boss: Boss, hitSource: HitSource?) {
+        val scaleBy = when (hitSource) {
+            DeadableComponent.HitSource.Bullet -> 1f
+            DeadableComponent.HitSource.Explosion -> 10f
+            DeadableComponent.HitSource.SoulLeaving -> 1f
+            null -> 1f
+        }
+        engine.addEntity(Particle(boss.position.toVec2, explosionEffect, 1f, scale = scaleBy))
     }
 }
