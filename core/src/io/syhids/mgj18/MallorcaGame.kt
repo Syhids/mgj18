@@ -37,6 +37,7 @@ class MallorcaGame : ApplicationAdapter() {
     }
 
     lateinit var camera: OrthographicCamera
+    lateinit var uiCamera: OrthographicCamera
 //    lateinit var font: BitmapFont
 //    lateinit var bigFont: BitmapFont
 
@@ -49,6 +50,7 @@ class MallorcaGame : ApplicationAdapter() {
         shapeRenderer.setAutoShapeType(true)
 
         camera = OrthographicCamera(WORLD_WIDTH.toFloat() * CAMERA_ZOOM, WORLD_HEIGHT.toFloat() * CAMERA_ZOOM)
+        uiCamera = OrthographicCamera(WORLD_WIDTH.toFloat() * CAMERA_ZOOM, WORLD_HEIGHT.toFloat() * CAMERA_ZOOM)
 
         engine.addEntity(Background())
         engine.addEntity(BackgroundVignete())
@@ -70,6 +72,7 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addEntity(Life())
 
         engine.addSystem(SpriteDrawingSystem(batch, camera))
+        engine.addSystem(SpriteUiDrawingSystem(batch, uiCamera))
         engine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))
         engine.addSystem(MovementInputSystem())
         engine.addSystem(AccelerationSystem())

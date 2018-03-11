@@ -217,8 +217,8 @@ class Life : Entity() {
         val texture = Texture(assetOf("vida.png"))
         val life = 1f
         add(LifeHeroComponent(life))
-        add(PositionComponent(x = -530f, y = -300f))
-        add(SpriteComponent(img = texture, depth = -1, scale = 3f))
+        add(PositionComponent(x = -300f, y = -100f))
+        add(SpriteComponent(img = texture, depth = -1, scale = 0.5f, isUi = true))
     }
 }
 

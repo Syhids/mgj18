@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import io.syhids.mgj18.*
 
-class SpriteDrawingSystem(
+class SpriteUiDrawingSystem(
     private val batch: SpriteBatch,
     private val camera: OrthographicCamera
 ) : SortedIteratingSystem(Family.all(
@@ -42,7 +42,7 @@ class SpriteDrawingSystem(
         if (!sprite.visible || sprite.img == null)
             return
 
-        if (sprite.isUi) return
+        if (sprite.isUi.not()) return
 
         //XXX: Hacky
         if (entity is Menu) {

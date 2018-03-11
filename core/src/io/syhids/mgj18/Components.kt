@@ -100,7 +100,8 @@ class SpriteComponent(
     var img: Texture? = null,
     var scale: Float = 1f,
     var visible: Boolean = true,
-    var depth: Int = 0
+    var depth: Int = 0,
+    var isUi: Boolean = false
 ) : Component {
     val sprite: Sprite
         get() = Sprite(img)
