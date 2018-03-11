@@ -4,11 +4,12 @@ import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.BitmapFont
-import com.badlogic.gdx.graphics.g2d.ParticleEmitter
+import com.badlogic.gdx.graphics.g2d.ParticleEffect
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
@@ -25,8 +26,14 @@ val engine = Engine()
 class MallorcaGame : ApplicationAdapter() {
     lateinit var batch: SpriteBatch
     lateinit var shapeRenderer: ShapeRenderer
-    val particleEmitter = ParticleEmitter().also {
-        it.maxParticleCount = 200
+//    val particleEmitter = ParticleEmitter().also {
+//        it.maxParticleCount = 200
+//    }
+
+    val particleEffect by lazy {
+        ParticleEffect().also {
+            it.load(assetOf("explo"), assetOf(""))
+        }
     }
 
     lateinit var camera: OrthographicCamera
@@ -34,7 +41,7 @@ class MallorcaGame : ApplicationAdapter() {
 //    lateinit var bigFont: BitmapFont
 
     var GAME_SPEED = 2f
-    val CAMERA_ZOOM = 0.5f
+    val CAMERA_ZOOM = 1f
 
     override fun create() {
         batch = SpriteBatch()
@@ -77,6 +84,9 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addSystem(SoulSystem())
         engine.addSystem(AltarBoyDeadSystem())
         engine.addSystem(SkeletonDeadSystem())
+        engine.addSystem(BossStageSystem())
+
+        particleEffect.start()
 
         val wallBounds = Rectangle(
             155f - (WORLD_WIDTH / 2f),
@@ -119,16 +129,21 @@ class MallorcaGame : ApplicationAdapter() {
     private var time: Float = 0f
 
     override fun render() {
-        val dt = Gdx.graphics.deltaTime * GAME_SPEED
+        val realDt = Gdx.graphics.deltaTime
+        val dt = realDt * GAME_SPEED
 
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.K)) {
+            particleEffect.start()
+        }
+
         engine.update(dt)
-        particleEmitter.update(dt)
+        particleEffect.update(realDt)
 
         batch.begin()
-        particleEmitter.draw(batch)
+        particleEffect.draw(batch, realDt)
         batch.end()
 
         time += Gdx.graphics.deltaTime

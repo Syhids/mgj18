@@ -11,7 +11,7 @@ class SkeletonDeadSystem : IteratingSystem(Family.all(
 ).get()) {
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val deadableComponent = entity.getComponent(DeadableComponent::class.java)
-        if (!deadableComponent.dead) return
+        if (!deadableComponent.hit) return
 
         engine.removeEntity(entity)
     }

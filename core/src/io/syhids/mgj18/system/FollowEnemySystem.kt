@@ -21,6 +21,9 @@ class FollowEnemySystem : IteratingSystem(Family.all(
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val hero = engine.entities.first { it is Hero }
         val enemy = entity
+
+        if (enemy is Boss) return
+
         val enemyPosition = positionCache.get(enemy)
 
         val direction = (hero.position - enemy.position).nor()

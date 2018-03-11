@@ -17,14 +17,20 @@ class ShootingInputSystem : IteratingSystem(Family.all(
     val lookAtCache = cacheOfComponent(LookAtComponent::class)
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
+        val hero = engine.entities.first { it is Hero }
+        val shotgun = hero.getComponent(Hero.ShotgunDelayComponent::class.java)
+        shotgun.lastShootAcc -= deltaTime
+
         if (!keyJustPressed(Input.Keys.SPACE)) return
         if (engine.getSystem(SoulSystem::class.java).state == SoulComponent.State.SelectingSoul) return
         if (engine.getSystem(SoulSystem::class.java).state is SoulComponent.State.ControllingSoul) return
+        if (shotgun.lastShootAcc > 0f) return
 
-        val hero = engine.entities.first { it is Hero }
+        shotgun.lastShootAcc = 1.9f
+
         val bullet = Bullet()
-
         val shootComponent = shootCache.get(bullet)
+
         val lookAt = lookAtCache.get(hero)
 
         val shootDirection = shootComponent.dir

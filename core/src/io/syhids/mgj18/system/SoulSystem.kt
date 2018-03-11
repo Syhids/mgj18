@@ -29,9 +29,10 @@ class SoulSystem : EntitySystem() {
     override fun update(deltaTime: Float) {
         val soulEntity = engine.entities.first { it is SoulCursor } as SoulCursor
 
-        soulEntity.sprite.visible = soul.state == State.SelectingSoul
+        val currentState = soul.state
+        soulEntity.sprite.visible = currentState == State.SelectingSoul
 
-        when (soul.state) {
+        when (currentState) {
             State.NoSoul -> {
                 if (Gdx.input.isKeyJustPressed(Keys.C)) {
                     state = State.SelectingSoul
@@ -48,6 +49,7 @@ class SoulSystem : EntitySystem() {
                         val entityCaptured = engine.entities
                             .map { it to cursorPosition.dst2(it.position.toVec2) }
                             .sortedByDescending { -it.second }
+                            .filter { it.first !is Boss }
                             .first { it.first.hasComponent<EnemyComponent>() }
 
                         if (entityCaptured.second > 40 * 40) {
@@ -74,6 +76,9 @@ class SoulSystem : EntitySystem() {
                     Gdx.input.isKeyJustPressed(Keys.ESCAPE) ||
                     Gdx.input.isKeyJustPressed(Keys.C)
                 ) {
+                    val deadable = currentState.entity.getComponent(DeadableComponent::class.java)
+                    deadable.hit = true
+                    deadable.hitSource = DeadableComponent.HitSource.SoulLeaving
                     state = State.NoSoul
                     disableMovementForEveryone()
                     hero.setMovementEnabled(true)

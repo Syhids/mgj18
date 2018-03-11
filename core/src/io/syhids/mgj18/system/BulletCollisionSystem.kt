@@ -25,7 +25,9 @@ class BulletCollisionSystem : IteratingSystem(Family.all(
             engine.removeEntity(entity)
 
             if (enemy.hasComponent<DeadableComponent>()) {
-                enemy.getComponent(DeadableComponent::class.java).dead = true
+                val deadable = enemy.getComponent(DeadableComponent::class.java)
+                deadable.hit = true
+                deadable.hitSource = DeadableComponent.HitSource.Bullet
             }
         }
     }

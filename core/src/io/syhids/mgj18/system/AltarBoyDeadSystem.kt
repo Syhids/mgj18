@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
 import io.syhids.mgj18.AltarBoy
 import io.syhids.mgj18.DeadableComponent
+import io.syhids.mgj18.DeadableComponent.HitSource
 import io.syhids.mgj18.EnemyComponent
 import io.syhids.mgj18.position
 
@@ -13,7 +14,7 @@ class AltarBoyDeadSystem : IteratingSystem(Family.all(
 ).get()) {
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val deadable = entity.getComponent(DeadableComponent::class.java)
-        if (!deadable.dead) return
+        if (!deadable.hit) return
 
         val deadPos = entity.position.toVec2
 
@@ -24,7 +25,9 @@ class AltarBoyDeadSystem : IteratingSystem(Family.all(
             .filter { it.second < 100 * 100 }
             .map { it.first }
             .forEach {
-                it.getComponent(DeadableComponent::class.java).dead = true
+                val deadable = it.getComponent(DeadableComponent::class.java)
+                deadable.hit = true
+                deadable.hitSource = HitSource.Explosion
             }
 
         engine.removeEntity(entity)

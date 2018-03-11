@@ -69,7 +69,9 @@ class FrictionComponent(
 ) : Component
 
 class EnemyComponent(val velocityMultiplier: Float) : Component
-class DeadableComponent(var dead: Boolean = false) : Component
+class DeadableComponent(var hit: Boolean = false, var hitSource: HitSource? = null) : Component {
+    enum class HitSource { Bullet, Explosion, SoulLeaving }
+}
 
 class CanSpawnComponent(var accTime: Float = 0f) : Component
 
@@ -118,8 +120,8 @@ class SpriteComponent(
 }
 
 class AnimationComponent(
-        var animation: Animation,
-        var speed: Float = 1f
+    var animation: Animation,
+    var speed: Float = 1f
 ) : Component {
 
     var state: State = State.Playing()

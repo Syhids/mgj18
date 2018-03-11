@@ -20,7 +20,7 @@ class SpawnEnemySystem : IteratingSystem(Family.all(
 
         if (canSpawnComponent.accTime >= minTime) {
 
-            val enemy = if (Math.random() > 0.1f)
+            val enemy = if (Math.random() > 0.12f)
                 Skeleton()
             else
                 AltarBoy()

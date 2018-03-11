@@ -64,8 +64,19 @@ class Boss : Entity() {
     init {
         val radius = 80f
         add(PositionComponent())
+        add(CircleColliderComponent(radius, false))
         add(SpriteComponent(img = Texture(assetOf("Ritual.png")), depth = 4, scale = 0.5f))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.RED))
+        add(BossLifeComponent())
+        add(EnemyComponent(0f))
+        add(BossStateComponent())
+        add(DeadableComponent())
+    }
+
+    class BossLifeComponent(var health: Int = 5) : Component
+
+    class BossStateComponent(var stage: Stage = Stage.One) : Component {
+        enum class Stage { One, Two, Three }
     }
 }
 
@@ -125,8 +136,11 @@ class Hero : Entity() {
         add(KeyboardAffectedComponent)
         add(MoveableByKeyboardComponent(enabled = true))
         add(LookAtComponent())
+        add(ShotgunDelayComponent())
         add(AnimationComponent(heroDownAnimation))
     }
+
+    class ShotgunDelayComponent(var lastShootAcc: Float = 0f) : Component
 }
 
 class Skeleton(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
@@ -200,7 +214,7 @@ class Bullet : Entity() {
 
 class Life : Entity() {
     init {
-        val texture = Texture(assetOf("Vida.png"))
+        val texture = Texture(assetOf("vida.png"))
         val life = 1f
         add(LifeHeroComponent(life))
         add(PositionComponent(x = -530f, y = -300f))
