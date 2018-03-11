@@ -51,6 +51,15 @@ class Boss : Entity() {
     }
 }
 
+val altarBoyDownAnimation = Animation(listOf(
+        Frame("altar boy/downAnimation/1.png", 200)
+))
+
+val altarBoyLeftAnimation = Animation(listOf(
+        Frame("altar boy/leftAnimation/1.png", 200),
+        Frame("altar boy/leftAnimation/1.png", 200)
+))
+
 val heroLeftAnimation = Animation(listOf(
         Frame("hero/leftAnimation/1.png", 200),
         Frame("hero/leftAnimation/2.png", 200),
@@ -98,7 +107,7 @@ class Hero : Entity() {
 
 class Enemy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
     companion object {
-        val texture by lazy { Texture(assetOf("pj_final.png")) }
+        val texture by lazy { Texture(assetOf("altar boy/downAnimation/1.png")) }
     }
 
     init {
