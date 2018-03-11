@@ -53,5 +53,11 @@ class ShootingInputSystem : IteratingSystem(Family.all(
         bullet.velocity.y = shootDirection.y * BULLET_SPEED
 
         engine.addEntity(bullet)
+        engine.addEntity(Particle(
+            bullet.position.toVec2,
+            explosionEffect,
+            lifetime = 1f,
+            scale = 0.2f
+        ))
     }
 }

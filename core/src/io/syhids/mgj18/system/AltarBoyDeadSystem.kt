@@ -3,11 +3,8 @@ package io.syhids.mgj18.system
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
-import io.syhids.mgj18.AltarBoy
-import io.syhids.mgj18.DeadableComponent
+import io.syhids.mgj18.*
 import io.syhids.mgj18.DeadableComponent.HitSource
-import io.syhids.mgj18.EnemyComponent
-import io.syhids.mgj18.position
 
 class AltarBoyDeadSystem : IteratingSystem(Family.all(
     AltarBoy.AltarBoyComponent::class.java
@@ -31,5 +28,6 @@ class AltarBoyDeadSystem : IteratingSystem(Family.all(
             }
 
         engine.removeEntity(entity)
+        engine.addEntity(Particle(entity.position.toVec2, explosionEffect, 1f))
     }
 }

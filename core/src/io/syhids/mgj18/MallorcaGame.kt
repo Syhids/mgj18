@@ -23,25 +23,21 @@ val WORLD_WIDTH = 1280
 val WORLD_HEIGHT: Int = (WORLD_WIDTH * 6 / 10).toInt()
 val gameEngine = Engine()
 val menuEngine = Engine()
-val currentGameState: GameState = GameState.MenuMode
+var currentGameState: GameState = GameState.MenuMode
 
 enum class GameState {
     MenuMode,
     GameMode
 }
 
+val explosionEffect: ParticleEffect
+    get() = ParticleEffect().also {
+        it.load(assetOf("explo"), assetOf(""))
+    }
+
 class MallorcaGame : ApplicationAdapter() {
     lateinit var batch: SpriteBatch
     lateinit var shapeRenderer: ShapeRenderer
-//    val particleEmitter = ParticleEmitter().also {
-//        it.maxParticleCount = 200
-//    }
-
-    val particleEffect by lazy {
-        ParticleEffect().also {
-            it.load(assetOf("explo"), assetOf(""))
-        }
-    }
 
     lateinit var camera: OrthographicCamera
     lateinit var uiCamera: OrthographicCamera
@@ -114,8 +110,8 @@ class MallorcaGame : ApplicationAdapter() {
         gameEngine.addSystem(AltarBoyDeadSystem())
         gameEngine.addSystem(SkeletonDeadSystem())
         gameEngine.addSystem(BossStageSystem())
-
-        particleEffect.start()
+        gameEngine.addSystem(ParticleDrawingSystem(batch, camera))
+        gameEngine.addSystem(RemoveAfterMsSystem())
 
         val wallBounds = Rectangle(
                 155f - (WORLD_WIDTH / 2f),
@@ -164,21 +160,16 @@ class MallorcaGame : ApplicationAdapter() {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.K)) {
-            particleEffect.start()
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            currentGameState = GameState.GameMode
         }
-        val currentEngine = when (currentGameState) {
 
+        val currentEngine = when (currentGameState) {
             GameState.MenuMode -> menuEngine
             GameState.GameMode -> gameEngine
         }
 
         currentEngine.update(dt)
-        particleEffect.update(realDt)
-
-        batch.begin()
-        particleEffect.draw(batch, realDt)
-        batch.end()
 
         time += Gdx.graphics.deltaTime
     }

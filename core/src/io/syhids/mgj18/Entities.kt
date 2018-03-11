@@ -22,6 +22,9 @@ val Entity.friction: FrictionComponent?
 val Entity.sprite: SpriteComponent
     get() = getComponent(SpriteComponent::class.java)
 
+val Entity.particle: Particle.ParticleDrawingComponent
+    get() = getComponent(Particle.ParticleDrawingComponent::class.java)
+
 val Entity.movement: MovableComponent
     get() = getComponent(MovableComponent::class.java)
 
@@ -121,6 +124,12 @@ val heroDownAnimation = Animation(listOf(
         Frame("hero/downAnimation/3.png", 200),
         Frame("hero/downAnimation/4.png", 200)
 ))
+val heroUpAnimation = Animation(listOf(
+    Frame("hero/downAnimation/1.png", 200),
+    Frame("hero/downAnimation/2.png", 200),
+    Frame("hero/downAnimation/3.png", 200),
+    Frame("hero/downAnimation/4.png", 200)
+))
 
 fun assetOf(asset: String) = Gdx.files.internal("assets/$asset")
 
@@ -138,6 +147,7 @@ class Boss : Entity() {
     init {
         val radius = 80f
         add(PositionComponent(x = 0f, y = 50f))
+        add(VelocityComponent())
         add(CircleColliderComponent(radius, false))
         add(SpriteComponent(img = Texture(assetOf("boss/1.png")), depth = 4, scale = 0.2f))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.RED))
