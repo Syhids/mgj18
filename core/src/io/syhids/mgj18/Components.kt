@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.ParticleEffect
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.Vector2
 import ktx.math.minus
@@ -90,7 +91,7 @@ class LookAtComponent(var dir: LookAtDirection = LookAtDirection.Right) : Compon
 
 class Particle(
     pos: Vector2,
-    effect: ParticleEffect,
+    effect: ParticleEffectPool.PooledEffect,
     lifetime: Float,
     scale: Float = 1f
 ) : Entity() {
@@ -103,7 +104,7 @@ class Particle(
     }
 
     data class RemoveAfterTimeComponent(var lifetime: Float) : Component
-    data class ParticleDrawingComponent(val effect: ParticleEffect) : Component {
+    data class ParticleDrawingComponent(val effect: ParticleEffectPool.PooledEffect) : Component {
         val depth: Int = 0
     }
 }
@@ -254,8 +255,18 @@ data class Animation(val frames: List<Frame>) {
         get() = frames.size - 1
 }
 
+val textureCache = TextureCache()
+
+class TextureCache(val map : MutableMap<String, Texture> = mutableMapOf()) {
+    fun load(asset: String)= map[asset]?: let {
+        val tex = Texture(assetOf(asset))
+        map[asset] = tex
+        tex
+    }
+}
+
 data class Frame(val imageName: String, val duration: Int) {
-    val texture by lazy { Texture(assetOf(imageName)) }
+    val texture by lazy { textureCache.load(imageName) }
 }
 
 class MovableComponent : Component {

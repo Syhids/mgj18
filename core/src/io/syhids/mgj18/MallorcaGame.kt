@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.ParticleEffect
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
@@ -34,10 +35,12 @@ enum class GameState {
     GameMode
 }
 
-val explosionEffect: ParticleEffect
-    get() = ParticleEffect().also {
-        it.load(assetOf("explo"), assetOf(""))
-    }
+val explosionEffect: ParticleEffectPool.PooledEffect
+    get() = explosionEffectPool.obtain()
+
+val explosionEffectPool = ParticleEffectPool(ParticleEffect().also {
+    it.load(assetOf("explo"), assetOf(""))
+}, 5, 10)
 
 class MallorcaGame : ApplicationAdapter() {
     lateinit var batch: SpriteBatch

@@ -42,5 +42,9 @@ class ParticleDrawingSystem(
         val position = position.get(entity)
         particle.effect.setPosition(position.x, position.y)
         particle.effect.draw(batch, deltaTime)
+
+        if (particle.effect.isComplete){
+            particle.effect.free()
+        }
     }
 }
