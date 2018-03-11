@@ -5,10 +5,7 @@ import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
-import io.syhids.mgj18.PositionComponent
-import io.syhids.mgj18.ShootComponent
-import io.syhids.mgj18.VelocityComponent
-import io.syhids.mgj18.cacheOfComponent
+import io.syhids.mgj18.*
 import ktx.math.times
 
 class KeepMovableEntitiesInsideTheWorldSystem(
@@ -22,6 +19,7 @@ class KeepMovableEntitiesInsideTheWorldSystem(
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
         if (entity.hasComponent<ShootComponent>()) return
+        if (entity is BackgroundClouds) return
 
         val position = positionCache.get(entity)
         val velocity = velocityCache.get(entity)

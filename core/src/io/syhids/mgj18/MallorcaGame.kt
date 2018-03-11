@@ -40,6 +40,8 @@ class MallorcaGame : ApplicationAdapter() {
         camera = OrthographicCamera(WORLD_WIDTH.toFloat() * CAMERA_ZOOM, WORLD_HEIGHT.toFloat() * CAMERA_ZOOM)
 
         engine.addEntity(Background())
+        engine.addEntity(BackgroundVignete())
+        engine.addEntity(BackgroundClouds())
         engine.addEntity(Boss())
         engine.addEntity(Hero())
         engine.addEntity(Life())

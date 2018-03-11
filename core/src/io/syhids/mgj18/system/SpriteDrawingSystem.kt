@@ -22,8 +22,12 @@ class SpriteDrawingSystem(
     private val position = component(PositionComponent::class)
     private val sprite = component(SpriteComponent::class)
 
+    var accDelta = 0f
+
     override fun update(deltaTime: Float) {
         camera.update()
+
+        accDelta += deltaTime
 
         batch.enableBlending()
         batch.begin()
@@ -52,6 +56,10 @@ class SpriteDrawingSystem(
         spriteToDraw.setCenter(position.x, position.y)
         spriteToDraw.rotation = sprite.rotation
 
-        spriteToDraw.draw(batch)
+        if (entity is BackgroundClouds)
+            batch.draw(sprite.img, (-sprite.width).toFloat(), (-sprite.height).toFloat(),
+                (accDelta * 14).toInt(), 0, sprite.width * 2, sprite.height * 2)
+        else
+            spriteToDraw.draw(batch)
     }
 }

@@ -37,9 +37,26 @@ fun yAlignBottom(tex: Texture, scale: Float = 1f): Float {
 
 class Background : Entity() {
     init {
-        val texture = Texture(assetOf("pared.png"))
+        val texture = Texture(assetOf("map_bg.png"))
         add(PositionComponent())
         add(SpriteComponent(img = texture, depth = -100, scale = 0.5f))
+    }
+}
+
+class BackgroundVignete : Entity() {
+    init {
+        val texture = Texture(assetOf("map_v.png"))
+        add(PositionComponent())
+        add(SpriteComponent(img = texture, depth = -99, scale = 0.5f))
+    }
+}
+
+class BackgroundClouds : Entity() {
+    init {
+        val texture = Texture(assetOf("map_clouds.png"))
+        add(PositionComponent())
+        add(VelocityComponent())
+        add(SpriteComponent(img = texture, depth = 888, scale = 0.5f))
     }
 }
 
