@@ -6,6 +6,7 @@ import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.Input
 import io.syhids.mgj18.*
 import io.syhids.mgj18.LookAtComponent.LookAtDirection
+import io.syhids.mgj18.component.SoulComponent
 
 class ShootingInputSystem : IteratingSystem(Family.all(
     KeyboardAffectedComponent::class.java
@@ -17,6 +18,8 @@ class ShootingInputSystem : IteratingSystem(Family.all(
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
         if (!keyJustPressed(Input.Keys.SPACE)) return
+        if (engine.getSystem(SoulSystem::class.java).state == SoulComponent.State.SelectingSoul) return
+        if (engine.getSystem(SoulSystem::class.java).state is SoulComponent.State.ControllingSoul) return
 
         val hero = engine.entities.first { it is Hero }
         val bullet = Bullet()

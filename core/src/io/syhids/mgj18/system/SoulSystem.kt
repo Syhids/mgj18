@@ -48,7 +48,7 @@ class SoulSystem : EntitySystem() {
                         val entityCaptured = engine.entities
                             .map { it to cursorPosition.dst2(it.position.toVec2) }
                             .sortedByDescending { -it.second }
-                            .first { it.first is Enemy }
+                            .first { it.first.hasComponent<EnemyComponent>() }
 
                         if (entityCaptured.second > 40 * 40) {
                             state = State.NoSoul

@@ -3,14 +3,11 @@ package io.syhids.mgj18.system
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
-import io.syhids.mgj18.CanSpawnComponent
-import io.syhids.mgj18.Enemy
-import io.syhids.mgj18.component
-import io.syhids.mgj18.position
+import io.syhids.mgj18.*
 import java.util.*
 
 class SpawnEnemySystem : IteratingSystem(Family.all(
-        CanSpawnComponent::class.java
+    CanSpawnComponent::class.java
 ).get()) {
     private val canSpawn = component(CanSpawnComponent::class)
     var accTime = 0f
@@ -22,7 +19,12 @@ class SpawnEnemySystem : IteratingSystem(Family.all(
         val minTime = 0
 
         if (canSpawnComponent.accTime >= minTime) {
-            val enemy = Enemy()
+
+            val enemy = if (Math.random() > 0.1f)
+                Skeleton()
+            else
+                AltarBoy()
+
             enemy.position.x = entity.position.x
             enemy.position.y = entity.position.y
             engine.addEntity(enemy)

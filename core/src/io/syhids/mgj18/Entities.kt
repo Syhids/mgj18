@@ -129,7 +129,7 @@ class Hero : Entity() {
     }
 }
 
-class Enemy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
+class Skeleton(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
     companion object {
         val texture by lazy { Texture(assetOf("altar boy/downAnimation/1.png")) }
     }
@@ -142,9 +142,35 @@ class Enemy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
         add(CircleColliderComponent(radius * 0.75f))
         add(FrictionComponent(value = 0.13f))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.GOLD))
+        add(SkeletonComponent())
         add(EnemyComponent(velocityMultiplier = 80f))
         add(MoveableByKeyboardComponent(enabled = false))
+        add(DeadableComponent())
     }
+
+    class SkeletonComponent : Component
+}
+
+class AltarBoy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
+    companion object {
+        val texture by lazy { Texture(assetOf("pj_final.png")) }
+    }
+
+    init {
+        val radius = 24f
+        add(SpriteComponent(img = texture, depth = -5, scale = radius * 0.0030f))
+        add(PositionComponent(x = initialX, y = initialY))
+        add(VelocityComponent())
+        add(CircleColliderComponent(radius * 0.75f))
+        add(FrictionComponent(value = 0.13f))
+        add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.FOREST))
+        add(EnemyComponent(velocityMultiplier = 80f))
+        add(MoveableByKeyboardComponent(enabled = false))
+        add(DeadableComponent())
+        add(AltarBoyComponent())
+    }
+
+    class AltarBoyComponent : Component
 }
 
 class Tomb : Entity() {

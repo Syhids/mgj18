@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
@@ -24,6 +25,9 @@ val engine = Engine()
 class MallorcaGame : ApplicationAdapter() {
     lateinit var batch: SpriteBatch
     lateinit var shapeRenderer: ShapeRenderer
+    val particleEmitter = ParticleEmitter().also {
+        it.maxParticleCount = 200
+    }
 
     lateinit var camera: OrthographicCamera
 //    lateinit var font: BitmapFont
@@ -51,7 +55,6 @@ class MallorcaGame : ApplicationAdapter() {
         listOf(
             -140f to 250f,
             110f to 250f,
-
             -140f to -200f,
             110f to -200f
         ).forEach { (x, y) -> engine.addEntity(Tomb().also { it.position.set(x, y) }) }
@@ -72,6 +75,8 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addSystem(AnimationSystem())
         engine.addSystem(MovementSpriteSystem())
         engine.addSystem(SoulSystem())
+        engine.addSystem(AltarBoyDeadSystem())
+        engine.addSystem(SkeletonDeadSystem())
 
         val wallBounds = Rectangle(
             155f - (WORLD_WIDTH / 2f),
@@ -95,7 +100,7 @@ class MallorcaGame : ApplicationAdapter() {
             WORLD_WIDTH + 600f,
             WORLD_HEIGHT + 600f
         )))
-        engine.addSystem(BulletColissionSystem())
+        engine.addSystem(BulletCollisionSystem())
     }
 
     private fun generateFont(size: Int): BitmapFont {
@@ -120,6 +125,11 @@ class MallorcaGame : ApplicationAdapter() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         engine.update(dt)
+        particleEmitter.update(dt)
+
+        batch.begin()
+        particleEmitter.draw(batch)
+        batch.end()
 
         time += Gdx.graphics.deltaTime
     }

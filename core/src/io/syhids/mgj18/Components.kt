@@ -69,6 +69,7 @@ class FrictionComponent(
 ) : Component
 
 class EnemyComponent(val velocityMultiplier: Float) : Component
+class DeadableComponent(var dead: Boolean = false) : Component
 
 class CanSpawnComponent(var accTime: Float = 0f) : Component
 
