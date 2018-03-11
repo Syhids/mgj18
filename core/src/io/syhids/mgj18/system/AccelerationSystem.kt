@@ -2,13 +2,12 @@ package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.IteratingSystem
 import io.syhids.mgj18.PositionComponent
 import io.syhids.mgj18.VelocityComponent
 import io.syhids.mgj18.component
 import io.syhids.mgj18.friction
 
-class AccelerationSystem : IteratingSystem(Family.all(
+class AccelerationSystem : DebugIteratingSystem(Family.all(
     PositionComponent::class.java,
     VelocityComponent::class.java
 ).get()) {

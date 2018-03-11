@@ -2,11 +2,10 @@ package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.math.Circle
 import io.syhids.mgj18.*
 
-class BulletCollisionSystem : IteratingSystem(Family.all(
+class BulletCollisionSystem : DebugIteratingSystem(Family.all(
     ShootComponent::class.java
 ).get()) {
     private val circleColliderCache = cacheOfComponent(CircleColliderComponent::class)

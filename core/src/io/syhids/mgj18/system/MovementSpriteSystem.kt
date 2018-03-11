@@ -2,11 +2,10 @@ package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.Input.Keys
 import io.syhids.mgj18.*
 
-class MovementSpriteSystem : IteratingSystem(Family.all(
+class MovementSpriteSystem : DebugIteratingSystem(Family.all(
     SpriteComponent::class.java,
     AnimationComponent::class.java,
     MoveableByKeyboardComponent::class.java

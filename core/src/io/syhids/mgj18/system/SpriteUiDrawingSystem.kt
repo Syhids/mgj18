@@ -2,7 +2,6 @@ package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.SortedIteratingSystem
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
@@ -12,7 +11,7 @@ import io.syhids.mgj18.*
 class SpriteUiDrawingSystem(
     private val batch: SpriteBatch,
     private val camera: OrthographicCamera
-) : SortedIteratingSystem(Family.all(
+) : DebugSortedIteratingSystem(Family.all(
     PositionComponent::class.java,
     SpriteComponent::class.java
 ).get(), { e, e2 ->

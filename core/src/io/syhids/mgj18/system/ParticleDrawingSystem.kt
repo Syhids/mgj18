@@ -2,7 +2,6 @@ package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.SortedIteratingSystem
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import io.syhids.mgj18.Particle.ParticleDrawingComponent
@@ -13,7 +12,7 @@ import io.syhids.mgj18.particle
 class ParticleDrawingSystem(
     private val batch: SpriteBatch,
     private val camera: OrthographicCamera
-) : SortedIteratingSystem(Family.all(
+) : DebugSortedIteratingSystem(Family.all(
     PositionComponent::class.java,
     ParticleDrawingComponent::class.java
 ).get(), { e, e2 ->

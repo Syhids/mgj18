@@ -2,7 +2,6 @@ package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20.*
 import com.badlogic.gdx.graphics.OrthographicCamera
@@ -16,7 +15,7 @@ import ktx.app.copy
 class PrimitiveDrawingSystem(
     private val shapeRenderer: ShapeRenderer,
     private val camera: OrthographicCamera
-) : IteratingSystem(Family.all(
+) : DebugIteratingSystem(Family.all(
     PositionComponent::class.java,
     PrimitiveDrawingComponent::class.java
 ).get()) {

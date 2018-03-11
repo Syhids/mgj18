@@ -2,14 +2,13 @@ package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.Input.Keys
 import io.syhids.mgj18.MoveableByKeyboardComponent
 import io.syhids.mgj18.SoulCursor
 import io.syhids.mgj18.anyKeyPressed
 import io.syhids.mgj18.velocity
 
-class MovementInputSystem : IteratingSystem(Family.all(
+class MovementInputSystem : DebugIteratingSystem(Family.all(
     MoveableByKeyboardComponent::class.java
 ).get()) {
     val POWER = 290f

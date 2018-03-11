@@ -2,7 +2,6 @@ package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import io.syhids.mgj18.*
@@ -10,7 +9,7 @@ import ktx.math.times
 
 class KeepMovableEntitiesInsideTheWorldSystem(
     val rect: Rectangle
-) : IteratingSystem(Family.all(
+) : DebugIteratingSystem(Family.all(
     PositionComponent::class.java,
     VelocityComponent::class.java
 ).get()) {

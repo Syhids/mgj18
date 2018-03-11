@@ -1,6 +1,5 @@
 package io.syhids.mgj18.system
 
-import com.badlogic.ashley.core.EntitySystem
 import io.syhids.mgj18.Boss
 import io.syhids.mgj18.Boss.BossLifeComponent
 import io.syhids.mgj18.Boss.BossStateComponent
@@ -8,8 +7,8 @@ import io.syhids.mgj18.Boss.BossStateComponent.Stage
 import io.syhids.mgj18.DeadableComponent
 import io.syhids.mgj18.DeadableComponent.HitSource
 
-class BossStageSystem : EntitySystem() {
-    override fun update(deltaTime: Float) {
+class BossStageSystem : DebugEntitySystem() {
+    override fun onUpdate(deltaTime: Float) {
         val boss = engine.entities.first { it is Boss } as Boss
 
         val deadable = boss.getComponent(DeadableComponent::class.java)

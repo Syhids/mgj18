@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.Component
 import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.math.Circle
 import io.syhids.mgj18.*
 import ktx.ashley.has
@@ -12,7 +11,7 @@ import ktx.math.times
 
 inline fun <reified T : Component> Entity.hasComponent() = has(ComponentMapper.getFor(T::class.java))
 
-class CollisionAvoidSystem : IteratingSystem(Family.all(
+class CollisionAvoidSystem : DebugIteratingSystem(Family.all(
     PositionComponent::class.java,
     VelocityComponent::class.java,
     CircleColliderComponent::class.java

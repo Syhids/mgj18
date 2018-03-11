@@ -2,11 +2,10 @@ package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.IteratingSystem
 import io.syhids.mgj18.*
 import io.syhids.mgj18.DeadableComponent.HitSource
 
-class AltarBoyDeadSystem : IteratingSystem(Family.all(
+class AltarBoyDeadSystem : DebugIteratingSystem(Family.all(
     AltarBoy.AltarBoyComponent::class.java
 ).get()) {
     override fun processEntity(entity: Entity, deltaTime: Float) {

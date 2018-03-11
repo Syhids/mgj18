@@ -1,14 +1,13 @@
 package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
-import com.badlogic.ashley.core.EntitySystem
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input.Keys
 import io.syhids.mgj18.*
 import io.syhids.mgj18.component.SoulComponent
 import io.syhids.mgj18.component.SoulComponent.State
 
-class SoulSystem : EntitySystem() {
+class SoulSystem : DebugEntitySystem() {
     val soulCache = cacheOfComponent(SoulComponent::class)
 
     val soulCursor: SoulCursor
@@ -26,7 +25,7 @@ class SoulSystem : EntitySystem() {
     val soul: SoulComponent
         get() = soulCache.get(hero)
 
-    override fun update(deltaTime: Float) {
+    override fun onUpdate(deltaTime: Float) {
         val soulEntity = engine.entities.first { it is SoulCursor } as SoulCursor
 
         val currentState = soul.state

@@ -2,35 +2,38 @@ package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.Input
 import io.syhids.mgj18.*
+import io.syhids.mgj18.Hero.ShotgunDelayComponent
 import io.syhids.mgj18.LookAtComponent.LookAtDirection
 import io.syhids.mgj18.component.SoulComponent
 
-class ShootingInputSystem : IteratingSystem(Family.all(
+class ShootingInputSystem : DebugIteratingSystem(Family.all(
     KeyboardAffectedComponent::class.java
 ).get()) {
     val BULLET_SPEED = 200
 
     val shootCache = cacheOfComponent(ShootComponent::class)
     val lookAtCache = cacheOfComponent(LookAtComponent::class)
+    val shotgunDelayCache = cacheOfComponent(ShotgunDelayComponent::class)
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val hero = engine.entities.first { it is Hero }
-        val shotgun = hero.getComponent(Hero.ShotgunDelayComponent::class.java)
+        val shotgun = shotgunDelayCache.get(hero)
         shotgun.lastShootAcc -= deltaTime
 
         if (!keyJustPressed(Input.Keys.SPACE)) return
-        if (engine.getSystem(SoulSystem::class.java).state == SoulComponent.State.SelectingSoul) return
-        if (engine.getSystem(SoulSystem::class.java).state is SoulComponent.State.ControllingSoul) return
+
+        val soulSystem = engine.getSystem(SoulSystem::class.java)
+
+        if (soulSystem.state == SoulComponent.State.SelectingSoul) return
+        if (soulSystem.state is SoulComponent.State.ControllingSoul) return
         if (shotgun.lastShootAcc > 0f) return
 
         shotgun.lastShootAcc = 1.9f
 
         val bullet = Bullet()
         val shootComponent = shootCache.get(bullet)
-
         val lookAt = lookAtCache.get(hero)
 
         val shootDirection = shootComponent.dir

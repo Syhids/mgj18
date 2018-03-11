@@ -2,14 +2,13 @@ package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.math.Vector2
 import io.syhids.mgj18.*
 import ktx.math.minus
 import ktx.math.times
 import ktx.math.vec2
 
-class FollowEnemySystem : IteratingSystem(Family.all(
+class FollowEnemySystem : DebugIteratingSystem(Family.all(
     EnemyComponent::class.java
 ).get()) {
     private val MIN_DIST = 60
