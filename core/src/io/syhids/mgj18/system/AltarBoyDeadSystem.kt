@@ -18,9 +18,11 @@ class AltarBoyDeadSystem : DebugIteratingSystem(Family.all(
             .filter { it.hasComponent<EnemyComponent>() }
             .map { it to it.position.toVec2.dst2(deadPos) }
             .sortedByDescending { -it.second }
-            .filter { it.second < 100 * 100 }
+            .filter { it.second < 120 * 120 }
             .map { it.first }
             .forEach {
+                if (it is Boss)
+                    println("Boss hit by explosion")
                 val deadable = it.getComponent(DeadableComponent::class.java)
                 deadable.hit = true
                 deadable.hitSource = HitSource.Explosion
