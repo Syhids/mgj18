@@ -165,8 +165,12 @@ class FirstBoss : Entity() {
     }
 }
 
-
-
+class FirstHero : Entity() {
+    init {
+        add(PositionComponent(x = 100f, y = +90f))
+        add(SpriteComponent(img = Texture(assetOf("pj_final.png")), depth = 4, scale = 0.1f))
+    }
+}
 
 class ClickableComponent(val rectangle: Rectangle) : Entity() {
 
