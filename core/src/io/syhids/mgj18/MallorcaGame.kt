@@ -58,7 +58,6 @@ class MallorcaGame : ApplicationAdapter() {
         engine.addEntity(Boss())
         engine.addEntity(Hero())
         engine.addEntity(Life())
-        engine.addEntity(Soul())
         engine.addEntity(SoulCursor())
 
         listOf(
