@@ -64,7 +64,7 @@ class MallorcaGame : ApplicationAdapter() {
 
 
         initGameEngine()
-        initFirstScebeEngine()
+        initFirstSceneEngine()
         initMenuEngine()
     }
 
@@ -84,9 +84,9 @@ class MallorcaGame : ApplicationAdapter() {
         menuEngine.addSystem(MovementSpriteSystem())
     }
 
-    private fun initFirstScebeEngine() {
-        FirstSceneEngine.addEntity(MenuBackground())
-
+    private fun initFirstSceneEngine() {
+        FirstSceneEngine.addEntity(FirstBackground())
+        FirstSceneEngine.addEntity(FirstBoss())
 
         FirstSceneEngine.addSystem(SpriteDrawingSystem(batch, camera))
         FirstSceneEngine.addSystem(SpriteUiDrawingSystem(batch, uiCamera))
@@ -181,7 +181,10 @@ class MallorcaGame : ApplicationAdapter() {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) {
+            currentGameState = GameState.FirstSceneEngine
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F2)) {
             currentGameState = GameState.GameMode
         }
 

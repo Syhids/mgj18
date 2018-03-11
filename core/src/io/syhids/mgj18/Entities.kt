@@ -65,9 +65,9 @@ class BackgroundClouds : Entity() {
 }
 
 val lifeAnimation = Animation(listOf(
-        Frame("life/llena.png", 500),
-        Frame("life/media.png", 500),
-        Frame("life/vacía.png", 500)
+        Frame("life/llena.png", 500)
+//        Frame("life/media.png", 500),
+//        Frame("life/vacía.png", 500)
 ))
 
 val bossAnimation = Animation(listOf(
@@ -129,6 +129,14 @@ class MenuBackground : Entity() {
 
 }
 
+class FirstBackground : Entity() {
+    init {
+        add(PositionComponent(x = 0f, y = 0f))
+        add(SpriteComponent(img = Texture(assetOf("mapa 2/3.png")), depth = 4, scale = 0.35f))
+    }
+
+}
+
 class ButtonPlay : Entity() {
     init {
         add(PositionComponent(x = 0f, y = 200f))
@@ -146,9 +154,18 @@ class ButtonOptions : Entity() {
 class ButtonExit : Entity() {
     init {
         add(PositionComponent(x = 0f, y = 0f))
-        add(SpriteComponent(img = Texture(assetOf("Buttons/optionsButton.png")), depth = 4, scale = 1f))
+        add(SpriteComponent(img = Texture(assetOf("Buttons/exitButton.png")), depth = 4, scale = 1f))
     }
 }
+
+class FirstBoss : Entity() {
+    init {
+        add(PositionComponent(x = -100f, y = -70f))
+        add(SpriteComponent(img = Texture(assetOf("boss/boss.png")), depth = 4, scale = 0.2f))
+    }
+}
+
+
 
 
 class ClickableComponent(val rectangle: Rectangle) : Entity() {
