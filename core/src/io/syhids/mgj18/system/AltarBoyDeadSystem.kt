@@ -10,12 +10,29 @@ class AltarBoyDeadSystem : DebugIteratingSystem(Family.all(
 ).get()) {
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val deadable = entity.getComponent(DeadableComponent::class.java)
-        if (!deadable.hit) return
-
         val deadPos = entity.position.toVec2
 
+        if (!deadable.hit) {
+            engine.entities
+                .filter {
+                    it.hasComponent<LifeComponent>()
+                }
+                .map { it to it.position.toVec2.dst2(deadPos) }
+                .sortedByDescending { -it.second }
+                .filter { it.second < 80 * 80 }
+                .map { it.first }
+                .forEach {
+                    val deadable = entity.getComponent(DeadableComponent::class.java)
+                    deadable.hit = true
+                }
+            return
+        }
+
         engine.entities
-            .filter { it.hasComponent<EnemyComponent>() }
+            .filter {
+                it.hasComponent<EnemyComponent>() ||
+                    it.hasComponent<LifeComponent>()
+            }
             .map { it to it.position.toVec2.dst2(deadPos) }
             .sortedByDescending { -it.second }
             .filter { it.second < 120 * 120 }

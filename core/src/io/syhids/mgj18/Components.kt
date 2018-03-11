@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.Component
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.ParticleEffect
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.Vector2
@@ -45,7 +44,8 @@ class PositionComponent(
 
 class CircleColliderComponent(val radius: Float, val canBeRepelled: Boolean = true) : Component
 
-class LifeHeroComponent(val life: Float = 1f) : Component
+class LifeHeroComponent : Component
+class LifeComponent(var remainingHits: Int = 10) : Component
 
 class VelocityComponent : Component {
     var x: Float = 0f

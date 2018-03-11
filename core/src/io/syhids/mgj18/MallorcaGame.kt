@@ -134,6 +134,7 @@ class MallorcaGame : ApplicationAdapter() {
         gameEngine.addSystem(BossStageSystem())
         gameEngine.addSystem(ParticleDrawingSystem(batch, camera))
         gameEngine.addSystem(RemoveAfterMsSystem())
+        gameEngine.addSystem(HeroLifeCheckSystem())
 
         val wallBounds = Rectangle(
                 155f - (WORLD_WIDTH / 2f),

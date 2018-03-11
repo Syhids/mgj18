@@ -215,6 +215,8 @@ class Hero : Entity() {
         add(MoveableByKeyboardComponent(enabled = true))
         add(LookAtComponent())
         add(ShotgunDelayComponent())
+        add(LifeComponent())
+        add(DeadableComponent())
         add(AnimationComponent(heroDownAnimation))
     }
 
@@ -296,8 +298,7 @@ class Bullet : Entity() {
 class Life : Entity() {
     init {
         val texture = Texture(assetOf("vida.png"))
-        val life = 1f
-        add(LifeHeroComponent(life))
+        add(LifeHeroComponent())
         add(PositionComponent(x = -475f, y = -250f))
         add(SpriteComponent(img = texture, depth = -1, scale = 0.09f, isUi = true))
         add(AnimationComponent(lifeAnimation))
