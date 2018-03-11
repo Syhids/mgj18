@@ -51,6 +51,12 @@ class Boss : Entity() {
     }
 }
 
+val firstAnimation = Animation(listOf(
+        Frame("FirstAnimation/catedral_iluminada.png", 200),
+        Frame("FirstAnimation/catedral_negra", 200),
+        Frame("FirstAnimation/catedral_iluminado", 200)
+))
+
 val altarBoyDownAnimation = Animation(listOf(
         Frame("altar boy/downAnimation/1.png", 200)
 ))
