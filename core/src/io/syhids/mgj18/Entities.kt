@@ -40,11 +40,9 @@ fun yAlignBottom(tex: Texture, scale: Float = 1f): Float {
 
 class Background : Entity() {
     init {
-        val bound = Texture(assetOf("map_bg.png"))
-        val button = Texture(assetOf("map_bg.png"))
+        val texture = Texture(assetOf("map_bg.png"))
         add(PositionComponent())
-        add(SpriteComponent(img = bound, depth = -100, scale = 0.5f))
-        add(SpriteComponent(img = button, depth = -100, scale = 0.5f))
+        add(SpriteComponent(img = texture, depth = -100, scale = 0.5f))
 
     }
 }
@@ -85,22 +83,22 @@ val bossAnimation = Animation(listOf(
 //))
 
 val altarBoyDownAnimation = Animation(listOf(
-        Frame("altar boy/bomba1.png", 200),
-        Frame("altar boy/bomba2.png", 200),
-        Frame("altar boy/bomba3.png", 200)
+        Frame("altar boy/downBomber/bomba1.png", 200),
+        Frame("altar boy/downBomber/bomba2.png", 200),
+        Frame("altar boy/downBomber/bomba3.png", 200)
 ))
 
 val skeletonsAnimation = Animation(listOf(
-        Frame("altar boy/esqueleto1.png", 200),
-        Frame("altar boy/esqueleto2.png", 200),
-        Frame("altar boy/esqueleto3.png", 200)
+        Frame("altar boy/Skeleton/downSkeleton/esqueleto1.png", 200),
+        Frame("altar boy/Skeleton/downSkeleton/esqueleto2.png", 200),
+        Frame("altar boy/Skeleton/downSkeleton/esqueleto3.png", 200)
 ))
 
 
-val altarBoyLeftAnimation = Animation(listOf(
-        Frame("altar boy/leftAnimation/1.png", 200),
-        Frame("altar boy/leftAnimation/1.png", 200)
-))
+//val altarBoyLeftAnimation = Animation(listOf(
+//        Frame("altar boy/leftAnimation/1.png", 200),
+//        Frame("altar boy/leftAnimation/1.png", 200)
+//))
 
 val heroLeftAnimation = Animation(listOf(
         Frame("hero/leftAnimation/1.png", 200),
@@ -139,6 +137,32 @@ class MenuBackground : Entity() {
         add(PositionComponent(x = 0f, y = 0f))
         add(SpriteComponent(img = Texture(assetOf("FirstAnimation/catedral_iluminada.png")), depth = 4, scale = 0.35f))
     }
+
+}
+
+class ButtonPlay : Entity() {
+    init {
+        add(PositionComponent(x = 0f, y = 200f))
+        add(SpriteComponent(img = Texture(assetOf("Buttons/play.png")), depth = 4, scale = 1f))
+    }
+}
+
+class ButtonOptions : Entity() {
+    init {
+        add(PositionComponent(x = 0f, y = 100f))
+        add(SpriteComponent(img = Texture(assetOf("Buttons/optionsButton.png")), depth = 4, scale = 1f))
+    }
+}
+
+class ButtonExit : Entity() {
+    init {
+        add(PositionComponent(x = 0f, y = 0f))
+        add(SpriteComponent(img = Texture(assetOf("Buttons/optionsButton.png")), depth = 4, scale = 1f))
+    }
+}
+
+
+class ClickableComponent(val rectangle: Rectangle) : Entity() {
 
 }
 
@@ -189,7 +213,7 @@ class Hero : Entity() {
 
 class Skeleton(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
     companion object {
-        val texture by lazy { Texture(assetOf("altar boy/esqueleto1.png")) }
+        val texture by lazy { Texture(assetOf("altar boy/Skeleton/downSkeleton//esqueleto1.png")) }
     }
 
     init {
@@ -213,7 +237,7 @@ class Skeleton(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
 
 class AltarBoy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
     companion object {
-        val texture by lazy { Texture(assetOf("altar boy/bomba1.png")) }
+        val texture by lazy { Texture(assetOf("altar boy/downBomber/bomba1.png")) }
     }
 
     init {
@@ -236,7 +260,7 @@ class AltarBoy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
 
 class Tomb : Entity() {
     init {
-        val texture = Texture(assetOf("Lapida.png"))
+        val texture = Texture(assetOf("tomb.png"))
         add(PositionComponent(x = -50f, y = 200f))
         add(SpriteComponent(img = texture, depth = -11, scale = 0.25f))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(20f), Color.BLUE))

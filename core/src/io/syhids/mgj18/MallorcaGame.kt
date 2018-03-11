@@ -21,12 +21,16 @@ import io.syhids.mgj18.system.*
 val WORLD_WIDTH = 1280
 @JvmField
 val WORLD_HEIGHT: Int = (WORLD_WIDTH * 6 / 10).toInt()
+
 val gameEngine = Engine()
 val menuEngine = Engine()
+val FirstSceneEngine = Engine()
+
 var currentGameState: GameState = GameState.MenuMode
 
 enum class GameState {
     MenuMode,
+    FirstSceneEngine,
     GameMode
 }
 
@@ -57,12 +61,15 @@ class MallorcaGame : ApplicationAdapter() {
 
 
         initGameEngine()
-
+        initFirstScebeEngine()
         initMenuEngine()
     }
 
     private fun initMenuEngine() {
         menuEngine.addEntity(MenuBackground())
+        menuEngine.addEntity(ButtonPlay())
+        menuEngine.addEntity(ButtonOptions())
+        menuEngine.addEntity(ButtonExit())
 
 
         menuEngine.addSystem(SpriteDrawingSystem(batch, camera))
@@ -72,6 +79,17 @@ class MallorcaGame : ApplicationAdapter() {
         menuEngine.addSystem(AccelerationSystem())
         menuEngine.addSystem(AnimationSystem())
         menuEngine.addSystem(MovementSpriteSystem())
+    }
+
+    private fun initFirstScebeEngine() {
+        FirstSceneEngine.addEntity(MenuBackground())
+
+
+        FirstSceneEngine.addSystem(SpriteDrawingSystem(batch, camera))
+        FirstSceneEngine.addSystem(SpriteUiDrawingSystem(batch, uiCamera))
+        FirstSceneEngine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))
+        FirstSceneEngine.addSystem(AnimationSystem())
+        FirstSceneEngine.addSystem(MovementSpriteSystem())
     }
 
     private fun initGameEngine() {
@@ -167,6 +185,7 @@ class MallorcaGame : ApplicationAdapter() {
         val currentEngine = when (currentGameState) {
             GameState.MenuMode -> menuEngine
             GameState.GameMode -> gameEngine
+            GameState.FirstSceneEngine -> FirstSceneEngine
         }
 
         currentEngine.update(dt)
