@@ -77,28 +77,17 @@ val bossAnimation = Animation(listOf(
         Frame("boss/4.png", 200)
 ))
 
-//val firstAnimation = Animation(listOf(
-//        Frame("FirstAnimation/catedral_negra.png", 200),
-//        Frame("FirstAnimation/catedral_iluminada.png", 200)
-//))
-
 val altarBoyDownAnimation = Animation(listOf(
-        Frame("altar boy/downBomber/bomba1.png", 200),
-        Frame("altar boy/downBomber/bomba2.png", 200),
-        Frame("altar boy/downBomber/bomba3.png", 200)
+    Frame("bomber/down/bomba1.png", 200),
+    Frame("bomber/down/bomba2.png", 200),
+    Frame("bomber/down/bomba3.png", 200)
 ))
 
 val skeletonsAnimation = Animation(listOf(
-        Frame("altar boy/Skeleton/downSkeleton/esqueleto1.png", 200),
-        Frame("altar boy/Skeleton/downSkeleton/esqueleto2.png", 200),
-        Frame("altar boy/Skeleton/downSkeleton/esqueleto3.png", 200)
+    Frame("altarboy/skeleton/down/esqueleto1.png", 200),
+    Frame("altarboy/skeleton/down/esqueleto2.png", 200),
+    Frame("altarboy/skeleton/down/esqueleto3.png", 200)
 ))
-
-
-//val altarBoyLeftAnimation = Animation(listOf(
-//        Frame("altar boy/leftAnimation/1.png", 200),
-//        Frame("altar boy/leftAnimation/1.png", 200)
-//))
 
 val heroLeftAnimation = Animation(listOf(
         Frame("hero/leftAnimation/1.png", 200),
@@ -213,7 +202,7 @@ class Hero : Entity() {
 
 class Skeleton(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
     companion object {
-        val texture by lazy { Texture(assetOf("altar boy/Skeleton/downSkeleton//esqueleto1.png")) }
+        val texture by lazy { Texture(assetOf("altarboy/skeleton/down/esqueleto1.png")) }
     }
 
     init {
@@ -237,7 +226,7 @@ class Skeleton(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
 
 class AltarBoy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
     companion object {
-        val texture by lazy { Texture(assetOf("altar boy/downBomber/bomba1.png")) }
+        val texture by lazy { Texture(assetOf("bomber/down/bomba1.png")) }
     }
 
     init {
