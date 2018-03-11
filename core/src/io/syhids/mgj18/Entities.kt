@@ -37,9 +37,12 @@ fun yAlignBottom(tex: Texture, scale: Float = 1f): Float {
 
 class Background : Entity() {
     init {
-        val texture = Texture(assetOf("map_bg.png"))
+        val bound = Texture(assetOf("map_bg.png"))
+        val button = Texture(assetOf("map_bg.png"))
         add(PositionComponent())
-        add(SpriteComponent(img = texture, depth = -100, scale = 0.5f))
+        add(SpriteComponent(img = bound, depth = -100, scale = 0.5f))
+        add(SpriteComponent(img = button, depth = -100, scale = 0.5f))
+
     }
 }
 
@@ -120,6 +123,15 @@ val heroDownAnimation = Animation(listOf(
 ))
 
 fun assetOf(asset: String) = Gdx.files.internal("assets/$asset")
+
+
+class MenuBackground : Entity() {
+    init {
+        add(PositionComponent(x = 0f, y = 0f))
+        add(SpriteComponent(img = Texture(assetOf("FirstAnimation/catedral_iluminada.png")), depth = 4, scale = 0.35f))
+    }
+
+}
 
 
 class Boss : Entity() {

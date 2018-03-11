@@ -21,7 +21,14 @@ import io.syhids.mgj18.system.*
 val WORLD_WIDTH = 1280
 @JvmField
 val WORLD_HEIGHT: Int = (WORLD_WIDTH * 6 / 10).toInt()
-val engine = Engine()
+val gameEngine = Engine()
+val menuEngine = Engine()
+val currentGameState: GameState = GameState.MenuMode
+
+enum class GameState {
+    MenuMode,
+    GameMode
+}
 
 class MallorcaGame : ApplicationAdapter() {
     lateinit var batch: SpriteBatch
@@ -52,67 +59,87 @@ class MallorcaGame : ApplicationAdapter() {
         camera = OrthographicCamera(WORLD_WIDTH.toFloat() * CAMERA_ZOOM, WORLD_HEIGHT.toFloat() * CAMERA_ZOOM)
         uiCamera = OrthographicCamera(WORLD_WIDTH.toFloat() * CAMERA_ZOOM, WORLD_HEIGHT.toFloat() * CAMERA_ZOOM)
 
-        engine.addEntity(Background())
-        engine.addEntity(BackgroundVignete())
-        engine.addEntity(BackgroundClouds())
-        engine.addEntity(Boss())
-        engine.addEntity(Hero())
-        engine.addEntity(Life())
-        engine.addEntity(SoulCursor())
+
+        initGameEngine()
+
+        initMenuEngine()
+    }
+
+    private fun initMenuEngine() {
+        menuEngine.addEntity(MenuBackground())
+
+
+        menuEngine.addSystem(SpriteDrawingSystem(batch, camera))
+        menuEngine.addSystem(SpriteUiDrawingSystem(batch, uiCamera))
+        menuEngine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))
+        menuEngine.addSystem(MovementInputSystem())
+        menuEngine.addSystem(AccelerationSystem())
+        menuEngine.addSystem(AnimationSystem())
+        menuEngine.addSystem(MovementSpriteSystem())
+    }
+
+    private fun initGameEngine() {
+        gameEngine.addEntity(Background())
+        gameEngine.addEntity(BackgroundVignete())
+        gameEngine.addEntity(BackgroundClouds())
+        gameEngine.addEntity(Boss())
+        gameEngine.addEntity(Hero())
+        gameEngine.addEntity(Life())
+        gameEngine.addEntity(SoulCursor())
 
         listOf(
-            -140f to 250f,
-            110f to 250f,
-            -140f to -200f,
-            110f to -200f
-        ).forEach { (x, y) -> engine.addEntity(Tomb().also { it.position.set(x, y) }) }
+                -140f to 250f,
+                110f to 250f,
+                -140f to -200f,
+                110f to -200f
+        ).forEach { (x, y) -> gameEngine.addEntity(Tomb().also { it.position.set(x, y) }) }
 
-        engine.addEntity(Tomb())
-        engine.addEntity(Life())
+        gameEngine.addEntity(Tomb())
+        gameEngine.addEntity(Life())
 
-        engine.addSystem(SpriteDrawingSystem(batch, camera))
-        engine.addSystem(SpriteUiDrawingSystem(batch, uiCamera))
-        engine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))
-        engine.addSystem(MovementInputSystem())
-        engine.addSystem(AccelerationSystem())
-        engine.addSystem(FollowEnemySystem())
-        engine.addSystem(CollisionAvoidSystem())
-        engine.addSystem(SpawnEnemySystem())
-        engine.addSystem(ShootingInputSystem())
-        engine.addSystem(HeroLookAtInputSystem())
-        engine.addSystem(CameraMovementSystem(camera))
-        engine.addSystem(AnimationSystem())
-        engine.addSystem(MovementSpriteSystem())
-        engine.addSystem(SoulSystem())
-        engine.addSystem(AltarBoyDeadSystem())
-        engine.addSystem(SkeletonDeadSystem())
-        engine.addSystem(BossStageSystem())
+        gameEngine.addSystem(SpriteDrawingSystem(batch, camera))
+        gameEngine.addSystem(SpriteUiDrawingSystem(batch, uiCamera))
+        gameEngine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))
+        gameEngine.addSystem(MovementInputSystem())
+        gameEngine.addSystem(AccelerationSystem())
+        gameEngine.addSystem(FollowEnemySystem())
+        gameEngine.addSystem(CollisionAvoidSystem())
+        gameEngine.addSystem(SpawnEnemySystem())
+        gameEngine.addSystem(ShootingInputSystem())
+        gameEngine.addSystem(HeroLookAtInputSystem())
+        gameEngine.addSystem(CameraMovementSystem(camera))
+        gameEngine.addSystem(AnimationSystem())
+        gameEngine.addSystem(MovementSpriteSystem())
+        gameEngine.addSystem(SoulSystem())
+        gameEngine.addSystem(AltarBoyDeadSystem())
+        gameEngine.addSystem(SkeletonDeadSystem())
+        gameEngine.addSystem(BossStageSystem())
 
         particleEffect.start()
 
         val wallBounds = Rectangle(
-            155f - (WORLD_WIDTH / 2f),
-            180f - (WORLD_HEIGHT / 2f),
-            WORLD_WIDTH - 340f,
-            WORLD_HEIGHT - 300f
+                155f - (WORLD_WIDTH / 2f),
+                180f - (WORLD_HEIGHT / 2f),
+                WORLD_WIDTH - 340f,
+                WORLD_HEIGHT - 300f
         )
-        engine.addEntity(object : Entity() {
+        gameEngine.addEntity(object : Entity() {
             init {
                 add(PositionComponent(wallBounds.x, wallBounds.y))
                 add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Rectangle(
-                    wallBounds.width.toInt(),
-                    wallBounds.height.toInt()
+                        wallBounds.width.toInt(),
+                        wallBounds.height.toInt()
                 ), Color.CYAN))
             }
         })
-        engine.addSystem(KeepMovableEntitiesInsideTheWorldSystem(wallBounds))
-        engine.addSystem(CleanEntitiesOutsideTheWorldSystem(Rectangle(
-            -(WORLD_WIDTH / 2f + 300),
-            -(WORLD_HEIGHT / 2f + 300),
-            WORLD_WIDTH + 600f,
-            WORLD_HEIGHT + 600f
+        gameEngine.addSystem(KeepMovableEntitiesInsideTheWorldSystem(wallBounds))
+        gameEngine.addSystem(CleanEntitiesOutsideTheWorldSystem(Rectangle(
+                -(WORLD_WIDTH / 2f + 300),
+                -(WORLD_HEIGHT / 2f + 300),
+                WORLD_WIDTH + 600f,
+                WORLD_HEIGHT + 600f
         )))
-        engine.addSystem(BulletCollisionSystem())
+        gameEngine.addSystem(BulletCollisionSystem())
     }
 
     private fun generateFont(size: Int): BitmapFont {
@@ -140,8 +167,13 @@ class MallorcaGame : ApplicationAdapter() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.K)) {
             particleEffect.start()
         }
+        val currentEngine = when (currentGameState) {
 
-        engine.update(dt)
+            GameState.MenuMode -> menuEngine
+            GameState.GameMode -> gameEngine
+        }
+
+        currentEngine.update(dt)
         particleEffect.update(realDt)
 
         batch.begin()
