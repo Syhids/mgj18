@@ -11,7 +11,6 @@ class SpawnEnemySystem : DebugIteratingSystem(Family.all(
     var accTime = 0f
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
-
         val canSpawnComponent = canSpawn.get(entity)
         canSpawnComponent.accTime += deltaTime
         val minTime = 0
@@ -34,7 +33,6 @@ class SpawnEnemySystem : DebugIteratingSystem(Family.all(
             engine.addEntity(enemy)
             canSpawnComponent.accTime -= 5 + Math.random().toFloat() * 12
         }
-
     }
 
     override fun update(deltaTime: Float) {
