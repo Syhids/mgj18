@@ -7,9 +7,9 @@ import com.badlogic.gdx.Input.Keys
 import io.syhids.mgj18.*
 
 class MovementSpriteSystem : IteratingSystem(Family.all(
-        SpriteComponent::class.java,
-        AnimationComponent::class.java,
-        MoveableByKeyboardComponent::class.java
+    SpriteComponent::class.java,
+    AnimationComponent::class.java,
+    MoveableByKeyboardComponent::class.java
 ).get()) {
     override fun processEntity(entity: Entity, deltaTime: Float) {
         if (entity !is Hero) return

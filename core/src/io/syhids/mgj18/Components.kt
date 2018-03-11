@@ -1,8 +1,10 @@
 package io.syhids.mgj18
 
 import com.badlogic.ashley.core.Component
+import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.ParticleEffect
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.Vector2
 import ktx.math.minus
@@ -83,6 +85,26 @@ class LookAtComponent(var dir: LookAtDirection = LookAtDirection.Right) : Compon
         Right,
         Up,
         Down,
+    }
+}
+
+class Particle(
+    pos: Vector2,
+    effect: ParticleEffect,
+    lifetime: Float,
+    scale: Float = 1f
+) : Entity() {
+    init {
+        effect.scaleEffect(scale)
+        effect.start()
+        add(PositionComponent().also { it.set(pos.x, pos.y) })
+        add(ParticleDrawingComponent(effect))
+        add(RemoveAfterTimeComponent(lifetime))
+    }
+
+    data class RemoveAfterTimeComponent(var lifetime: Float) : Component
+    data class ParticleDrawingComponent(val effect: ParticleEffect) : Component {
+        val depth: Int = 0
     }
 }
 
