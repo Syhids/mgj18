@@ -89,11 +89,13 @@ class MallorcaGame : ApplicationAdapter() {
         FirstSceneEngine.addEntity(FirstBoss())
         FirstSceneEngine.addEntity(FirstHero())
 
+        FirstSceneEngine.addSystem(AccelerationSystem())
         FirstSceneEngine.addSystem(SpriteDrawingSystem(batch, camera))
         FirstSceneEngine.addSystem(SpriteUiDrawingSystem(batch, uiCamera))
         FirstSceneEngine.addSystem(PrimitiveDrawingSystem(shapeRenderer, camera))
         FirstSceneEngine.addSystem(AnimationSystem())
         FirstSceneEngine.addSystem(MovementSpriteSystem())
+        FirstSceneEngine.addSystem(FirstSceneAnimationSystem())
     }
 
     private fun initGameEngine() {

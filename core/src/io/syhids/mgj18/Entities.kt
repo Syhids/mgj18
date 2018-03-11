@@ -160,14 +160,16 @@ class ButtonExit : Entity() {
 
 class FirstBoss : Entity() {
     init {
-        add(PositionComponent(x = -100f, y = -70f))
+        add(PositionComponent(x = 100f, y = +90f))
+        add(VelocityComponent())
+        add(Boss.BossLifeComponent())
         add(SpriteComponent(img = Texture(assetOf("boss/boss.png")), depth = 4, scale = 0.2f))
     }
 }
 
 class FirstHero : Entity() {
     init {
-        add(PositionComponent(x = 100f, y = +90f))
+        add(PositionComponent(x = -100f, y = -70f))
         add(SpriteComponent(img = Texture(assetOf("pj_final.png")), depth = 4, scale = 0.1f))
     }
 }
