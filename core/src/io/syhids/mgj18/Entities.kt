@@ -65,57 +65,57 @@ class BackgroundClouds : Entity() {
 }
 
 val lifeAnimation = Animation(listOf(
-        Frame("life/llena.png", 500)
+    Frame("life/llena.png", 500)
 //        Frame("life/media.png", 500),
-//        Frame("life/vacía.png", 500)
+//        Frame("life/vacia.png", 500)
 ))
 
 val bossAnimation = Animation(listOf(
-        Frame("boss/1.png", 200),
-        Frame("boss/2.png", 200),
-        Frame("boss/3.png", 200),
-        Frame("boss/4.png", 200)
+    Frame("boss/1.png", 200),
+    Frame("boss/2.png", 200),
+    Frame("boss/3.png", 200),
+    Frame("boss/4.png", 200)
 ))
 
-val altarBoyDownAnimation = Animation(listOf(
-    Frame("bomber/down/bomba1.png", 200),
-    Frame("bomber/down/bomba2.png", 200),
-    Frame("bomber/down/bomba3.png", 200)
+val bomberDownAnimation = Animation(listOf(
+    Frame("bomber/down/1.png", 200),
+    Frame("bomber/down/2.png", 200),
+    Frame("bomber/down/3.png", 200)
 ))
 
-val skeletonsAnimation = Animation(listOf(
-    Frame("altarboy/skeleton/down/esqueleto1.png", 200),
-    Frame("altarboy/skeleton/down/esqueleto2.png", 200),
-    Frame("altarboy/skeleton/down/esqueleto3.png", 200)
+val skeletonDownAnimation = Animation(listOf(
+    Frame("skeleton/down/1.png", 200),
+    Frame("skeleton/down/2.png", 200),
+    Frame("skeleton/down/3.png", 200)
 ))
 
 val heroLeftAnimation = Animation(listOf(
-        Frame("hero/leftAnimation/1.png", 200),
-        Frame("hero/leftAnimation/2.png", 200),
-        Frame("hero/leftAnimation/3.png", 200),
-        Frame("hero/leftAnimation/4.png", 200),
-        Frame("hero/leftAnimation/5.png", 200),
-        Frame("hero/leftAnimation/6.png", 200)
+    Frame("hero/left/1.png", 200),
+    Frame("hero/left/2.png", 200),
+    Frame("hero/left/3.png", 200),
+    Frame("hero/left/4.png", 200),
+    Frame("hero/left/5.png", 200),
+    Frame("hero/left/6.png", 200)
 ))
 val heroRightAnimation = Animation(listOf(
-        Frame("hero/rightAnimation/1.png", 200),
-        Frame("hero/rightAnimation/2.png", 200),
-        Frame("hero/rightAnimation/3.png", 200),
-        Frame("hero/rightAnimation/4.png", 200),
-        Frame("hero/rightAnimation/5.png", 200),
-        Frame("hero/rightAnimation/6.png", 200)
+    Frame("hero/right/1.png", 200),
+    Frame("hero/right/2.png", 200),
+    Frame("hero/right/3.png", 200),
+    Frame("hero/right/4.png", 200),
+    Frame("hero/right/5.png", 200),
+    Frame("hero/right/6.png", 200)
 ))
 val heroDownAnimation = Animation(listOf(
-        Frame("hero/downAnimation/1.png", 200),
-        Frame("hero/downAnimation/2.png", 200),
-        Frame("hero/downAnimation/3.png", 200),
-        Frame("hero/downAnimation/4.png", 200)
+    Frame("hero/down/1.png", 200),
+    Frame("hero/down/2.png", 200),
+    Frame("hero/down/3.png", 200),
+    Frame("hero/down/4.png", 200)
 ))
 val heroUpAnimation = Animation(listOf(
-    Frame("hero/downAnimation/1.png", 200),
-    Frame("hero/downAnimation/2.png", 200),
-    Frame("hero/downAnimation/3.png", 200),
-    Frame("hero/downAnimation/4.png", 200)
+    Frame("hero/down/1.png", 200),
+    Frame("hero/down/2.png", 200),
+    Frame("hero/down/3.png", 200),
+    Frame("hero/down/4.png", 200)
 ))
 
 fun assetOf(asset: String) = Gdx.files.internal("assets/$asset")
@@ -163,14 +163,14 @@ class FirstBoss : Entity() {
         add(PositionComponent(x = 100f, y = +90f))
         add(VelocityComponent())
         add(Boss.BossLifeComponent())
-        add(SpriteComponent(img = Texture(assetOf("boss/boss.png")), depth = 4, scale = 0.2f))
+        add(SpriteComponent(img = Texture(assetOf("boss/1.png")), depth = 4, scale = 0.2f / 0.4f))
     }
 }
 
 class FirstHero : Entity() {
     init {
         add(PositionComponent(x = -100f, y = -70f))
-        add(SpriteComponent(img = Texture(assetOf("pj_final.png")), depth = 4, scale = 0.1f))
+        add(SpriteComponent(img = Texture(assetOf("pj_final.png")), depth = 4, scale = 0.1f / 0.4f))
     }
 }
 
@@ -185,7 +185,7 @@ class Boss : Entity() {
         add(PositionComponent(x = 0f, y = 50f))
         add(VelocityComponent())
         add(CircleColliderComponent(radius, false))
-        add(SpriteComponent(img = Texture(assetOf("boss/1.png")), depth = 4, scale = 0.2f))
+        add(SpriteComponent(img = Texture(assetOf("boss/1.png")), depth = 4, scale = 0.2f / 0.4f))
         add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Circle(radius), Color.RED))
         add(BossLifeComponent())
         add(EnemyComponent(0f))
@@ -207,7 +207,7 @@ class Hero : Entity() {
         val texture = Texture(assetOf("pj_final.png"))
         val radius = 30f
         add(PositionComponent(x = -462.47162f, y = 23.337389f))
-        add(SpriteComponent(img = texture, depth = 3, scale = radius * 0.0028f))
+        add(SpriteComponent(img = texture, depth = 3, scale = radius * 0.0028f / 0.3f))
         add(VelocityComponent())
         add(FrictionComponent(value = 0.1f))
         add(CircleColliderComponent(radius * 1f, canBeRepelled = false))
@@ -227,12 +227,12 @@ class Hero : Entity() {
 
 class Skeleton(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
     companion object {
-        val texture by lazy { Texture(assetOf("altarboy/skeleton/down/esqueleto1.png")) }
+        val texture by lazy { Texture(assetOf("skeleton/down/1.png")) }
     }
 
     init {
         val radius = 18f
-        add(SpriteComponent(img = texture, depth = -5, scale = radius * 0.0030f))
+        add(SpriteComponent(img = texture, depth = -5, scale = radius * 0.0030f / 0.2f))
         add(PositionComponent(x = initialX, y = initialY))
         add(VelocityComponent())
         add(CircleColliderComponent(radius * 0.75f))
@@ -242,21 +242,21 @@ class Skeleton(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
         add(EnemyComponent(velocityMultiplier = 80f))
         add(MoveableByKeyboardComponent(enabled = false))
         add(DeadableComponent())
-        add(AnimationComponent(skeletonsAnimation))
+        add(AnimationComponent(skeletonDownAnimation))
 
     }
 
     class SkeletonComponent : Component
 }
 
-class AltarBoy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
+class Bomber(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
     companion object {
-        val texture by lazy { Texture(assetOf("bomber/down/bomba1.png")) }
+        val texture by lazy { textureCache.load("bomber/down/1.png") }
     }
 
     init {
         val radius = 24f
-        add(SpriteComponent(img = texture, depth = -5, scale = radius * 0.0030f))
+        add(SpriteComponent(img = texture, depth = -5, scale = radius * 0.0030f / 0.2f))
         add(PositionComponent(x = initialX, y = initialY))
         add(VelocityComponent())
         add(CircleColliderComponent(radius * 0.75f))
@@ -265,11 +265,11 @@ class AltarBoy(initialX: Float = 0f, initialY: Float = 0f) : Entity() {
         add(EnemyComponent(velocityMultiplier = 80f))
         add(MoveableByKeyboardComponent(enabled = false))
         add(DeadableComponent())
-        add(AltarBoyComponent())
-        add(AnimationComponent(altarBoyDownAnimation))
+        add(BomberComponent())
+        add(AnimationComponent(bomberDownAnimation))
     }
 
-    class AltarBoyComponent : Component
+    class BomberComponent : Component
 }
 
 class Tomb : Entity() {
@@ -302,7 +302,7 @@ class Life : Entity() {
         val texture = Texture(assetOf("vida.png"))
         add(LifeHeroComponent())
         add(PositionComponent(x = -475f, y = -250f))
-        add(SpriteComponent(img = texture, depth = -1, scale = 0.09f, isUi = true))
+        add(SpriteComponent(img = texture, depth = -1, scale = 0.09f / 0.1f, isUi = true))
         add(AnimationComponent(lifeAnimation))
     }
 }

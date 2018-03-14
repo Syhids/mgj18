@@ -134,7 +134,7 @@ class MallorcaGame : ApplicationAdapter() {
         gameEngine.addSystem(AnimationSystem())
         gameEngine.addSystem(MovementSpriteSystem())
         gameEngine.addSystem(SoulSystem())
-        gameEngine.addSystem(AltarBoyDeadSystem())
+        gameEngine.addSystem(BomberDeadSystem())
         gameEngine.addSystem(SkeletonDeadSystem())
         gameEngine.addSystem(BossStageSystem())
         gameEngine.addSystem(ParticleDrawingSystem(batch, camera))

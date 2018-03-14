@@ -21,7 +21,7 @@ class SpawnEnemySystem : DebugIteratingSystem(Family.all(
             val enemy = if (Math.random() > 0.22f)
                 Skeleton()
             else
-                AltarBoy()
+                Bomber()
 
             val tookTime = System.currentTimeMillis() - time
 
