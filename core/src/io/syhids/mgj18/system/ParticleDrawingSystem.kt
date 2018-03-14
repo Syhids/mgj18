@@ -18,7 +18,6 @@ class ParticleDrawingSystem(
 ).get(), { e, e2 ->
     e.particle.depth - e2.particle.depth
 }) {
-
     private val position = component(PositionComponent::class)
     private val particle = component(ParticleDrawingComponent::class)
 
@@ -41,9 +40,5 @@ class ParticleDrawingSystem(
         val position = position.get(entity)
         particle.effect.setPosition(position.x, position.y)
         particle.effect.draw(batch, deltaTime)
-
-        if (particle.effect.isComplete){
-            particle.effect.free()
-        }
     }
 }
