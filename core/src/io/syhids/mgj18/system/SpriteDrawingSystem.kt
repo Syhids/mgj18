@@ -2,8 +2,6 @@ package io.syhids.mgj18.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import io.syhids.mgj18.*
@@ -18,8 +16,8 @@ class SpriteDrawingSystem(
     e.sprite.depth - e2.sprite.depth
 }) {
 
-    private val position = component(PositionComponent::class)
-    private val sprite = component(SpriteComponent::class)
+    private val positionCache = component(PositionComponent::class)
+    private val spriteCache = component(SpriteComponent::class)
 
     var accDelta = 0f
 
@@ -36,20 +34,14 @@ class SpriteDrawingSystem(
     }
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
-        val sprite = sprite.get(entity)
+        val sprite = spriteCache.get(entity)
 
         if (!sprite.visible || sprite.img == null)
             return
 
         if (sprite.isUi) return
 
-        //XXX: Hacky
-        if (entity is Menu) {
-            Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        }
-
-        val position = position.get(entity)
+        val position = positionCache.get(entity)
         val spriteToDraw = sprite.sprite
 
         spriteToDraw.setAlpha(sprite.alpha)
@@ -58,8 +50,15 @@ class SpriteDrawingSystem(
         spriteToDraw.rotation = sprite.rotation
 
         if (entity is BackgroundClouds)
-            batch.draw(sprite.img, (-sprite.width).toFloat(), (-sprite.height).toFloat(),
-                (accDelta * 14).toInt(), 0, sprite.width * 2, sprite.height * 2)
+            batch.draw(
+                sprite.img,
+                (-sprite.width).toFloat(),
+                (-sprite.height).toFloat(),
+                (accDelta * 14).toInt(),
+                0,
+                sprite.width * 2,
+                sprite.height * 2
+            )
         else
             spriteToDraw.draw(batch)
     }

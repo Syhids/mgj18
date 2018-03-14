@@ -27,7 +27,10 @@ val gameEngine = Engine()
 val menuEngine = Engine()
 val FirstSceneEngine = Engine()
 
-var currentGameState: GameState = GameState.MenuMode
+
+val font by lazy { BitmapFont() }
+
+var currentGameState: GameState = GameState.GameMode
 
 enum class GameState {
     MenuMode,
@@ -108,10 +111,10 @@ class MallorcaGame : ApplicationAdapter() {
         gameEngine.addEntity(SoulCursor())
 
         listOf(
-                -140f to 250f,
-                110f to 250f,
-                -140f to -200f,
-                110f to -200f
+            -140f to 250f,
+            110f to 250f,
+            -140f to -200f,
+            110f to -200f
         ).forEach { (x, y) -> gameEngine.addEntity(Tomb().also { it.position.set(x, y) }) }
 
         gameEngine.addEntity(Tomb())
@@ -139,26 +142,26 @@ class MallorcaGame : ApplicationAdapter() {
         gameEngine.addSystem(HeroLifeCheckSystem())
 
         val wallBounds = Rectangle(
-                155f - (WORLD_WIDTH / 2f),
-                180f - (WORLD_HEIGHT / 2f),
-                WORLD_WIDTH - 340f,
-                WORLD_HEIGHT - 300f
+            155f - (WORLD_WIDTH / 2f),
+            180f - (WORLD_HEIGHT / 2f),
+            WORLD_WIDTH - 340f,
+            WORLD_HEIGHT - 300f
         )
         gameEngine.addEntity(object : Entity() {
             init {
                 add(PositionComponent(wallBounds.x, wallBounds.y))
                 add(PrimitiveDrawingComponent(PrimitiveDrawingComponent.Shape.Rectangle(
-                        wallBounds.width.toInt(),
-                        wallBounds.height.toInt()
+                    wallBounds.width.toInt(),
+                    wallBounds.height.toInt()
                 ), Color.CYAN))
             }
         })
         gameEngine.addSystem(KeepMovableEntitiesInsideTheWorldSystem(wallBounds))
         gameEngine.addSystem(CleanEntitiesOutsideTheWorldSystem(Rectangle(
-                -(WORLD_WIDTH / 2f + 300),
-                -(WORLD_HEIGHT / 2f + 300),
-                WORLD_WIDTH + 600f,
-                WORLD_HEIGHT + 600f
+            -(WORLD_WIDTH / 2f + 300),
+            -(WORLD_HEIGHT / 2f + 300),
+            WORLD_WIDTH + 600f,
+            WORLD_HEIGHT + 600f
         )))
         gameEngine.addSystem(BulletCollisionSystem())
     }
@@ -175,8 +178,6 @@ class MallorcaGame : ApplicationAdapter() {
 
         return font
     }
-
-    private var time: Float = 0f
 
     override fun render() {
         val realDt = Gdx.graphics.deltaTime
@@ -198,9 +199,17 @@ class MallorcaGame : ApplicationAdapter() {
             GameState.FirstSceneEngine -> FirstSceneEngine
         }
 
+        val realTime = System.currentTimeMillis()
         currentEngine.update(dt)
+        val elapsedTime = System.currentTimeMillis() - realTime
 
-        time += Gdx.graphics.deltaTime
+        if (elapsedTime > 0) {
+            val fps = 1000 / elapsedTime
+
+            if (fps < 100) {
+                println("Fps too low: $fps")
+            }
+        }
     }
 
     override fun dispose() {

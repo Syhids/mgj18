@@ -26,7 +26,7 @@ class SpawnEnemySystem : DebugIteratingSystem(Family.all(
             val tookTime = System.currentTimeMillis() - time
 
             if (tookTime > 1)
-                println("Spawssn took $tookTime ms")
+                println("Single spawn took $tookTime ms")
 
             enemy.position.x = entity.position.x
             enemy.position.y = entity.position.y
